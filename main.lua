@@ -43,6 +43,7 @@ Mainframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Mainframe.BorderSizePixel = 0
 Mainframe.Position = UDim2.new(0.345660388, 0, 0.208845213, 0)
 Mainframe.Size = UDim2.new(0, 409, 0, 434)
+Mainframe.Active = true
 Mainframe.Draggable = true
 
 TextLabel.Parent = Mainframe
