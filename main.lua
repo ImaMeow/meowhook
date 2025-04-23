@@ -32,7 +32,7 @@ local TextLabel_6 = Instance.new("TextLabel")
 --Properties:
 
 meowhook.Name = "meowhook"
-meowhook.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+meowhook.Parent = game.CoreGui
 meowhook.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 meowhook.ResetOnSpawn = false
 
