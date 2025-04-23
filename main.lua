@@ -199,6 +199,12 @@ DefaultFlingOptions = {
 	Timeout = 1,
 	ToolFling = false,
 }
+
+--[[
+game.Players.LocalPlayer:GetMouse().Button1Down:Connect(function()
+	Empyrean.Fling(game.Players.LocalPlayer:GetMouse().Target.Parent.Head,DefaultFlingOptions)
+end)
+]]--
 	Running = true
 end)
 
