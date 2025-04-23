@@ -77,7 +77,7 @@ TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 TextLabel_3.BackgroundTransparency = 1.000
 TextLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel_3.BorderSizePixel = 0
-TextLabel_3.Position = UDim2.new(-0.347188264, 0, 0, 0)
+TextLabel_3.Position = UDim2.new(-0.0782396123, 0, 0, 0)
 TextLabel_3.Size = UDim2.new(0, 409, 0, 22)
 TextLabel_3.Font = Enum.Font.GothamMedium
 TextLabel_3.Text = "meowhook V2 discord.gg/N4QHD7v2qE"
@@ -90,18 +90,21 @@ ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ImageLabel.BackgroundTransparency = 1.000
 ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ImageLabel.BorderSizePixel = 0
-ImageLabel.Position = UDim2.new(-0.176039115, 0, 0.169291407, 0)
+ImageLabel.Position = UDim2.new(-0.156479225, 0, 0.18772459, 0)
 ImageLabel.Size = UDim2.new(0, 293, 0, 454)
 ImageLabel.ZIndex = -1
 ImageLabel.Image = "rbxassetid://8992230677"
-ImageLabel.ImageColor3 = Color3.fromRGB(64, 64, 64)
+game:GetService("RunService").Heartbeat:Connect(function()
+	rgb = tick() / 2 % 2
+	ImageLabel.ImageColor3 = Color3.fromHSV(rgb,1,1)
+end)
 
 ImageLabel_2.Parent = Mainframe
 ImageLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ImageLabel_2.BackgroundTransparency = 1.000
 ImageLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ImageLabel_2.BorderSizePixel = 0
-ImageLabel_2.Position = UDim2.new(-0.12428429, 0, 0.294048607, 0)
+ImageLabel_2.Position = UDim2.new(-0.0802745149, 0, 0.291744471, 0)
 ImageLabel_2.Size = UDim2.new(0, 329, 0, 347)
 ImageLabel_2.ZIndex = 0
 ImageLabel_2.Image = "rbxassetid://151807088"
