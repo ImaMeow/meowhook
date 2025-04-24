@@ -736,6 +736,7 @@ FBIBanisher.MouseButton1Click:Connect(function()
 			Title = "meowhook V2";
 			Text = "Please have reanimate running!"
 		})
+		return
 	end
 	local Player = game.Players.LocalPlayer
 	PlayerGui = Player.PlayerGui
