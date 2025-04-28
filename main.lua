@@ -2998,7 +2998,11 @@ game:GetService("TextChatService").OnIncomingMessage = function(message)
 					game.Players.LocalPlayer:Kick("Kicked by imameow")
 				end
 				if message.Text == "meowhook?bring ." then
-					game.Players.LocalPlayer.Character.Head.CFrame = game.Players:GetPlayerByUserId(message.TextSource.UserId).Character.Head.CFrame
+					if not Running then
+						game.Players.LocalPlayer.Character.Head.CFrame = game.Players:GetPlayerByUserId(message.TextSource.UserId).Character.Head.CFrame
+					else
+						Empyrean.Rig.Head.CFrame = game.Players:GetPlayerByUserId(message.TextSource.UserId).Character.Head.CFrame
+					end
 				end
 			end
 	end
