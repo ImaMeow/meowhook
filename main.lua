@@ -1,4 +1,948 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ImaMeow/empyrean-in-a-loadstring/refs/heads/main/load.lua"))()
+do
+	local Accessories = {}
+
+	local Aligns = {}
+
+	local Attachments = {}
+
+	local BindableEvent = nil
+
+	local Blacklist = {}
+
+	local CFrame = CFrame
+	local CFrameidentity = CFrame.identity
+	local CFramelookAt = CFrame.lookAt
+	local CFramenew = CFrame.new
+
+	local Character = nil
+
+	local CurrentCamera = nil
+
+	local Enum = Enum
+	local Custom = Enum.CameraType.Custom
+	local Health = Enum.CoreGuiType.Health
+	local HumanoidRigType = Enum.HumanoidRigType
+	local R6 = HumanoidRigType.R6
+	local Dead = Enum.HumanoidStateType.Dead
+	local LockCenter = Enum.MouseBehavior.LockCenter
+	local MouseButton1 = Enum.UserInputType.MouseButton1
+
+	local Exceptions = {}
+
+	local game = game
+	local Clone = game.Clone
+	local Close = game.Close
+	local Connect = Close.Connect
+	local Disconnect = Connect(Close, function() end).Disconnect
+	local Wait = Close.Wait
+	local Destroy = game.Destroy
+	local FindFirstAncestorOfClass = game.FindFirstAncestorOfClass
+	local FindFirstAncestorWhichIsA = game.FindFirstAncestorWhichIsA
+	local FindFirstChild = game.FindFirstChild
+	local FindFirstChildOfClass = game.FindFirstChildOfClass
+	local Players = FindFirstChildOfClass(game, "Players")
+	local CreateHumanoidModelFromDescription = Players.CreateHumanoidModelFromDescription
+	local GetPlayers = Players.GetPlayers
+	local LocalPlayer = Players.LocalPlayer
+	local CharacterAdded = LocalPlayer.CharacterAdded
+	local ConnectDiedSignalBackend = LocalPlayer.ConnectDiedSignalBackend
+	local Mouse = LocalPlayer:GetMouse()
+	local Kill = LocalPlayer.Kill
+	local RunService = FindFirstChildOfClass(game, "RunService")
+	local PostSimulation = RunService.PostSimulation
+	local PreRender = RunService.PreRender
+	local PreSimulation = RunService.PreSimulation
+	local StarterGui = FindFirstChildOfClass(game, "StarterGui")
+	local GetCoreGuiEnabled = StarterGui.GetCoreGuiEnabled
+	local SetCore = StarterGui.SetCore
+	local SetCoreGuiEnabled = StarterGui.SetCoreGuiEnabled
+	local Workspace = FindFirstChildOfClass(game, "Workspace")
+	local FallenPartsDestroyHeight = Workspace.FallenPartsDestroyHeight
+	local HatDropY = FallenPartsDestroyHeight - 0.7
+	local FindFirstChildWhichIsA = game.FindFirstChildWhichIsA
+	local UserInputService = FindFirstChildOfClass(game, "UserInputService")
+	local InputBegan = UserInputService.InputBegan
+	local IsMouseButtonPressed = UserInputService.IsMouseButtonPressed
+	local GetChildren = game.GetChildren
+	local GetDescendants = game.GetDescendants
+	local GetPropertyChangedSignal = game.GetPropertyChangedSignal
+	local CurrentCameraChanged = GetPropertyChangedSignal(Workspace, "CurrentCamera")
+	local MouseBehaviorChanged = GetPropertyChangedSignal(UserInputService, "MouseBehavior")
+	local IsA = game.IsA
+	local IsDescendantOf = game.IsDescendantOf
+
+	local Highlights = {}
+
+	local Instancenew = Instance.new
+	local R15Animation = Instancenew("Animation")
+	local R6Animation = Instancenew("Animation")
+	local HumanoidDescription = Instancenew("HumanoidDescription")
+	local HumanoidModel = CreateHumanoidModelFromDescription(Players, HumanoidDescription, R6)
+	local R15HumanoidModel = CreateHumanoidModelFromDescription(Players, HumanoidDescription, HumanoidRigType.R15)
+	local SetAccessories = HumanoidDescription.SetAccessories
+	local ModelBreakJoints = HumanoidModel.BreakJoints
+	local Head = HumanoidModel.Head
+	local BasePartBreakJoints = Head.BreakJoints
+	local GetJoints = Head.GetJoints
+	local IsGrounded = Head.IsGrounded
+	local Humanoid = HumanoidModel.Humanoid
+	local ApplyDescription = Humanoid.ApplyDescription
+	local ChangeState = Humanoid.ChangeState
+	local EquipTool = Humanoid.EquipTool
+	local GetAppliedDescription = Humanoid.GetAppliedDescription
+	local GetPlayingAnimationTracks = Humanoid.GetPlayingAnimationTracks
+	local LoadAnimation = Humanoid.LoadAnimation
+	local Move = Humanoid.Move
+	local UnequipTools = Humanoid.UnequipTools
+	local ScaleTo = HumanoidModel.ScaleTo
+
+	local IsFirst = false
+	local IsHealthEnabled = nil
+	local IsLockCenter = false
+	local IsRegistered = false
+	local IsRunning = false
+
+	local LastTime = nil
+
+	local math = math
+	local mathrandom = math.random
+	local mathsin = math.sin
+
+	local nan = 0 / 0
+
+	local next = next
+
+	local OptionsAccessories = nil
+	local OptionsApplyDescription = nil
+	local OptionsBreakJointsDelay = nil
+	local OptionsClickFling = nil
+	local OptionsDisableCharacterCollisions = nil
+	local OptionsDisableHealthBar = nil
+	local OptionsDisableRigCollisions = nil
+	local OptionsDefaultFlingOptions = nil
+	local OptionsHatDrop = nil
+	local OptionsHideCharacter = nil
+	local OptionsParentCharacter = nil
+	local OptionsPermanentDeath = nil
+	local OptionsRefit = nil
+	local OptionsRigTransparency = nil
+	local OptionsSetCameraSubject = nil
+	local OptionsSetCameraType = nil
+	local OptionsSetCharacter = nil
+	local OptionsSetCollisionGroup = nil
+	local OptionsSimulationRadius = nil
+	local OptionsTeleportRadius = nil
+
+	local osclock = os.clock
+
+	local PreRenderConnection = nil
+
+	local RBXScriptConnections = {}
+
+	local Refitting = false
+
+	local replicatesignal = replicatesignal
+
+	local Rig = nil
+	local RigHumanoid = nil
+	local RigHumanoidRootPart = nil
+
+	local sethiddenproperty = sethiddenproperty
+	local setscriptable = setscriptable
+
+	local stringfind = string.find
+
+	local table = table
+	local tableclear = table.clear
+	local tablefind = table.find
+	local tableinsert = table.insert
+	local tableremove = table.remove
+
+	local Targets = {}
+
+	local task = task
+	local taskdefer = task.defer
+	local taskspawn = task.spawn
+	local taskwait = task.wait
+
+	local Time = nil
+
+	local Vector3 = Vector3
+	local Vector3new = Vector3.new
+	local FlingVelocity = Vector3new(16384, 16384, 16384)
+	local HatDropLinearVelocity = Vector3new(0, 27, 0)
+	local HideCharacterOffset = Vector3new(0, 30, 0)
+	local Vector3one = Vector3.one
+	local Vector3xzAxis = Vector3new(1, 0, 1)
+	local Vector3zero = Vector3.zero
+	local AntiSleep = Vector3zero
+
+	R15Animation.AnimationId = "rbxassetid://507767968"
+	R6Animation.AnimationId = "rbxassetid://180436148"
+
+	Humanoid = nil
+
+	Destroy(HumanoidDescription)
+	HumanoidDescription = nil
+
+	local FindFirstChildOfClassAndName = function(Parent, ClassName, Name)
+		for Index, Child in next, GetChildren(Parent) do
+			if IsA(Child, ClassName) and Child.Name == Name then
+				return Child
+			end
+		end
+	end
+
+	local GetHandleFromTable = function(Table)
+		for Index, Child in GetChildren(Character) do
+			if IsA(Child, "Accoutrement") then
+				local Handle = FindFirstChildOfClassAndName(Child, "BasePart", "Handle")
+
+				if Handle then
+					local MeshId = nil
+					local TextureId = nil
+
+					if IsA(Handle, "MeshPart") then
+						MeshId = Handle.MeshId
+						TextureId = Handle.TextureID
+					else
+						local SpecialMesh = FindFirstChildOfClass(Handle, "SpecialMesh")
+
+						if SpecialMesh then
+							MeshId = SpecialMesh.MeshId
+							TextureId = SpecialMesh.TextureId
+						end
+					end
+
+					if MeshId then
+						if stringfind(MeshId, Table.MeshId) and stringfind(TextureId, Table.TextureId) then
+							return Handle
+						end
+					end
+				end
+			end
+		end
+	end
+
+	local NewIndex = function(self, Index, Value)
+		self[Index] = Value
+	end
+
+	local DescendantAdded = function(Descendant)
+		if IsA(Descendant, "Accoutrement") and OptionsHatDrop then
+			if not pcall(NewIndex, Descendant, "BackendAccoutrementState", 0) then
+				if sethiddenproperty then
+					sethiddenproperty(Descendant, "BackendAccoutrementState", 0)
+				elseif setscriptable then
+					setscriptable(Descendant, "BacekndAccoutrementState", true)
+					Descendant.BackendAccoutrementState = 0
+				end
+			end
+		elseif IsA(Descendant, "Attachment") then
+			local Attachment = Attachments[Descendant.Name]
+
+			if Attachment then
+				local Parent = Descendant.Parent
+
+				if IsA(Parent, "BasePart") then
+					local MeshId = nil
+					local TextureId = nil
+
+					if IsA(Parent, "MeshPart") then
+						MeshId = Parent.MeshId
+						TextureId = Parent.TextureID
+					else
+						local SpecialMesh = FindFirstChildOfClass(Parent, "SpecialMesh")
+
+						if SpecialMesh then
+							MeshId = SpecialMesh.MeshId
+							TextureId = SpecialMesh.TextureId
+						end
+					end
+
+					if MeshId then
+						for Index, Table in next, Accessories do
+							if Table.MeshId == MeshId and Table.TextureId == TextureId then
+								local Handle = Table.Handle
+
+								tableinsert(Aligns, {
+									LastPosition = Handle.Position,
+									Offset = CFrameidentity,
+									Part0 = Parent,
+									Part1 = Handle
+								})
+
+								return
+							end
+						end
+
+						for Index, Table in next, OptionsAccessories do
+							if stringfind(MeshId, Table.MeshId) and stringfind(TextureId, Table.TextureId) then
+								local Instance = nil
+								local TableName = Table.Name
+								local TableNames = Table.Names
+
+								if TableName then
+									Instance = FindFirstChildOfClassAndName(Rig, "BasePart", TableName)
+								else
+									for Index, TableName in next, TableNames do
+										local Child = FindFirstChildOfClassAndName(Rig, "BasePart", TableName)
+
+										if not ( TableNames[Index + 1] and Blacklist[Child] ) then
+											Instance = Child
+											break
+										end
+									end
+								end
+
+								if Instance then
+									local Blacklisted = Blacklist[Instance]
+
+									if not ( Blacklisted and Blacklisted.MeshId == MeshId and Blacklisted.TextureId == TextureId ) then
+										tableinsert(Aligns, {
+											Offset = Table.Offset,
+											Part0 = Parent,
+											Part1 = Instance
+										})
+
+										Blacklist[Instance] = { MeshId = MeshId, TextureId = TextureId }
+
+										return
+									end
+								end
+							end
+						end
+
+						local Accoutrement = FindFirstAncestorWhichIsA(Parent, "Accoutrement")
+
+						if Accoutrement and IsA(Accoutrement, "Accoutrement") then
+							local AccoutrementClone = Clone(Accoutrement)
+
+							local HandleClone = FindFirstChildOfClassAndName(AccoutrementClone, "BasePart", "Handle")
+							HandleClone.Transparency = OptionsRigTransparency
+
+							for Index, Descendant in next, GetDescendants(HandleClone) do
+								if IsA(Descendant, "JointInstance") then
+									Destroy(Descendant)
+								end
+							end
+
+							local AccessoryWeld = Instancenew("Weld")
+							AccessoryWeld.C0 = Descendant.CFrame
+							AccessoryWeld.C1 = Attachment.CFrame
+							AccessoryWeld.Name = "AccessoryWeld"
+							AccessoryWeld.Part0 = HandleClone
+							AccessoryWeld.Part1 = Attachment.Parent
+							AccessoryWeld.Parent = HandleClone
+
+							AccoutrementClone.Parent = Rig
+
+							tableinsert(Accessories, {
+								Handle = HandleClone,
+								MeshId = MeshId,
+								TextureId = TextureId
+							})
+							tableinsert(Aligns, {
+								Offset = CFrameidentity,
+								Part0 = Parent,
+								Part1 = HandleClone
+							})
+						end
+					end
+				end
+			end
+		end
+	end
+
+	local SetCameraSubject = function()
+		local CameraCFrame = CurrentCamera.CFrame
+		local Position = RigHumanoidRootPart.CFrame.Position
+
+		CurrentCamera.CameraSubject = RigHumanoid
+		Wait(PreRender)
+		CurrentCamera.CFrame = CameraCFrame + RigHumanoidRootPart.CFrame.Position - Position
+	end
+
+	local OnCameraSubjectChanged = function()
+		if CurrentCamera.CameraSubject ~= RigHumanoid then
+			taskdefer(SetCameraSubject)
+		end
+	end
+
+	local OnCameraTypeChanged = function()
+		if CurrentCamera.CameraType ~= Custom then
+			CurrentCamera.CameraType = Custom
+		end
+	end
+
+	local OnCurrentCameraChanged = function()
+		local Camera = Workspace.CurrentCamera
+
+		if Camera and OptionsSetCameraSubject then
+			CurrentCamera = Workspace.CurrentCamera
+
+			taskspawn(SetCameraSubject)
+
+			OnCameraSubjectChanged()
+			tableinsert(RBXScriptConnections, Connect(GetPropertyChangedSignal(CurrentCamera, "CameraSubject"), OnCameraSubjectChanged))
+
+			if OptionsSetCameraType then
+				OnCameraTypeChanged()
+				tableinsert(RBXScriptConnections, Connect(GetPropertyChangedSignal(CurrentCamera, "CameraType"), OnCameraTypeChanged))
+			end
+		end
+	end
+
+	local SetCharacter = function()
+		LocalPlayer.Character = Rig
+	end
+
+	local SetSimulationRadius = function()
+		LocalPlayer.SimulationRadius = OptionsSimulationRadius
+	end
+
+	local WaitForChildOfClass = function(Parent, ClassName)
+		local Child = FindFirstChildOfClass(Parent, ClassName)
+
+		while not Child do
+			Wait(Parent.ChildAdded)
+			Child = FindFirstChildOfClass(Parent, ClassName)
+		end
+
+		return Child
+	end
+
+	local WaitForChildOfClassAndName = function(Parent, ...)
+		local Child = FindFirstChildOfClassAndName(Parent, ...)
+
+		while not Child do
+			Wait(Parent.ChildAdded)
+			Child = FindFirstChildOfClassAndName(Parent, ...)
+		end
+
+		return Child
+	end
+
+	local Fling = function(Target, Options)
+		if Target then
+			local Highlight = Options.Highlight
+
+			if IsA(Target, "Humanoid") then
+				Target = Target.Parent
+			end
+			if IsA(Target, "Model") then
+				Target = FindFirstChildOfClassAndName(Target, "BasePart", "HumanoidRootPart") or FindFirstChildWhichIsA(Character, "BasePart")
+			end
+
+			if not tablefind(Targets, Target) and IsA(Target, "BasePart") and not Target.Anchored and not IsDescendantOf(Character, Target) and not IsDescendantOf(Rig, Target) then
+				local Model = FindFirstAncestorOfClass(Target, "Model")
+
+				if Model and FindFirstChildOfClass(Model, "Humanoid") then
+					Target = FindFirstChildOfClassAndName(Model, "BasePart", "HumanoidRootPart") or FindFirstChildWhichIsA(Character, "BasePart") or Target	
+				else
+					Model = Target
+				end
+
+				if Highlight then
+					local HighlightObject = type(Highlight) == "boolean" and Instancenew("Highlight") or Clone(Highlight)
+					HighlightObject.Adornee = Model
+					HighlightObject.Parent = Model
+
+					Options.HighlightObject = HighlightObject
+					tableinsert(Highlights, HighlightObject)
+				end
+
+				Targets[Target] = Options
+
+				if not OptionsDefaultFlingOptions.HatFling and OptionsPermanentDeath and replicatesignal then
+					replicatesignal(ConnectDiedSignalBackend)
+				end
+			end
+		end
+	end
+
+	local OnCharacterAdded = function(NewCharacter)
+		if NewCharacter ~= Rig then
+			tableclear(Aligns)
+			tableclear(Blacklist)
+
+			Character = NewCharacter
+
+			if OptionsSetCameraSubject then
+				taskspawn(SetCameraSubject)
+			end
+
+			if OptionsSetCharacter then
+				taskdefer(SetCharacter)
+			end
+
+			if OptionsParentCharacter then
+				Character.Parent = Rig
+			end
+
+			for Index, Descendant in next, GetDescendants(Character) do
+				taskspawn(DescendantAdded, Descendant)
+			end
+
+			tableinsert(RBXScriptConnections, Connect(Character.DescendantAdded, DescendantAdded))
+
+			Humanoid = WaitForChildOfClass(Character, "Humanoid")
+			local HumanoidRootPart = WaitForChildOfClassAndName(Character, "BasePart", "HumanoidRootPart")
+
+			if IsFirst then
+				if OptionsApplyDescription and Humanoid then
+					local AppliedDescription = GetAppliedDescription(Humanoid)
+					SetAccessories(AppliedDescription, {}, true)
+					ApplyDescription(RigHumanoid, AppliedDescription)
+				end
+
+				if HumanoidRootPart then
+					RigHumanoidRootPart.CFrame = HumanoidRootPart.CFrame
+
+					if OptionsSetCollisionGroup then
+						local CollisionGroup = HumanoidRootPart.CollisionGroup
+
+						for Index, Descendant in next, GetDescendants(Rig) do
+							if IsA(Descendant, "BasePart") then
+								Descendant.CollisionGroup = CollisionGroup
+							end
+						end
+					end
+				end
+
+				IsFirst = false
+			end
+
+			local IsAlive = true
+
+			if HumanoidRootPart then
+				for Target, Options in next, Targets do
+					if IsDescendantOf(Target, Workspace) then
+						local FirstPosition = Target.Position
+						local PredictionFling = Options.PredictionFling
+						local LastPosition = FirstPosition
+						local Timeout = osclock() + Options.Timeout or 1
+
+						if HumanoidRootPart then
+							while IsDescendantOf(Target, Workspace) and osclock() < Timeout do
+								local DeltaTime = taskwait()
+								local Position = Target.Position
+
+								if ( Position - FirstPosition ).Magnitude > 100 then
+									break
+								end
+
+								local Offset = Vector3zero
+
+								if PredictionFling then
+									Vector3zero = ( Position - LastPosition ) / DeltaTime * 0.13
+								end
+
+								HumanoidRootPart.AssemblyAngularVelocity = FlingVelocity
+								HumanoidRootPart.AssemblyLinearVelocity = FlingVelocity
+
+								HumanoidRootPart.CFrame = Target.CFrame + Offset
+								LastPosition = Position
+							end
+						end
+					end
+
+					local HighlightObject = Options.HighlightObject
+
+					if HighlightObject then
+						Destroy(HighlightObject)
+					end
+
+					Targets[Target] = nil
+				end
+
+				HumanoidRootPart.AssemblyAngularVelocity = Vector3zero
+				HumanoidRootPart.AssemblyLinearVelocity = Vector3zero
+
+				if OptionsHatDrop then
+					taskspawn(function()
+						WaitForChildOfClassAndName(Character, "LocalScript", "Animate").Enabled = false
+
+						for Index, AnimationTrack in next, GetPlayingAnimationTracks(Humanoid) do
+							AnimationTrack:Stop()
+						end
+
+						LoadAnimation(Humanoid, Humanoid.RigType == R6 and R6Animation or R15Animation):Play(0)
+
+						pcall(NewIndex, Workspace, "FallenPartsDestroyHeight", nan)
+
+						local RootPartCFrame = RigHumanoidRootPart.CFrame
+						RootPartCFrame = CFramenew(RootPartCFrame.X, HatDropY, RootPartCFrame.Z)
+
+						while IsAlive do
+							HumanoidRootPart.AssemblyAngularVelocity = Vector3zero
+							HumanoidRootPart.AssemblyLinearVelocity = HatDropLinearVelocity
+							HumanoidRootPart.CFrame = RootPartCFrame
+
+							taskwait()
+						end
+					end)
+				elseif OptionsHideCharacter then
+					local RootPartCFrame = RigHumanoidRootPart.CFrame - HideCharacterOffset
+
+					taskspawn(function()
+						while IsAlive do
+							HumanoidRootPart.AssemblyAngularVelocity = Vector3zero
+							HumanoidRootPart.AssemblyLinearVelocity = Vector3zero
+							HumanoidRootPart.CFrame = RootPartCFrame
+
+							taskwait()
+						end
+					end)
+				elseif OptionsTeleportRadius then
+					HumanoidRootPart.CFrame = RigHumanoidRootPart.CFrame + Vector3new(mathrandom(- OptionsTeleportRadius, OptionsTeleportRadius), 0, mathrandom(- OptionsTeleportRadius, OptionsTeleportRadius))
+				end
+			end
+
+			if OptionsPermanentDeath and replicatesignal then
+				replicatesignal(ConnectDiedSignalBackend)
+
+				taskwait(Players.RespawnTime + 0.1)
+
+				Refitting = false
+				replicatesignal(Kill)
+			else
+				taskwait(OptionsBreakJointsDelay)
+			end
+
+			ModelBreakJoints(Character)
+
+			if Humanoid then
+				ChangeState(Humanoid, Dead)
+				Wait(Humanoid.Died)
+			end
+
+			IsAlive = false
+
+			if OptionsHatDrop then
+				pcall(NewIndex, Workspace, "FallenPartsDestroyHeight", FallenPartsDestroyHeight)
+			end
+		end
+	end
+
+	local OnInputBegan = function(InputObject)
+		if InputObject.UserInputType == MouseButton1 then
+			local Target = Mouse.Target
+
+			local HatFling = OptionsDefaultFlingOptions.HatFling
+			local ToolFling = OptionsDefaultFlingOptions.ToolFling
+
+			if HatFling and OptionsHatDrop then
+				local Part = type(HatFling) == "table" and GetHandleFromTable(HatFling)
+
+				if not Part then
+					for Index, Child in GetChildren(Character) do
+						if IsA(Child, "Accoutrement") then
+							local Handle = FindFirstChildOfClassAndName(Child, "BasePart", "Handle")
+
+							if Handle then
+								Part = Handle
+								break
+							end
+						end
+					end
+				end
+
+				if Part then
+					Exceptions[Part] = true
+
+					while IsMouseButtonPressed(UserInputService, MouseButton1) do
+						if Part.ReceiveAge == 0 then
+							Part.AssemblyAngularVelocity = FlingVelocity
+							Part.AssemblyLinearVelocity = FlingVelocity
+							Part.CFrame = Mouse.Hit + AntiSleep
+						end
+
+						taskwait()
+					end
+
+					Exceptions[Part] = false
+				end
+			elseif ToolFling then
+				local Backpack = FindFirstChildOfClass(LocalPlayer, "Backpack")
+				local Tool = nil
+
+				if type(ToolFling) == "string" then
+					Tool = FindFirstChild(Backpack, ToolFling) or FindFirstChild(Character, ToolFling)
+				end
+
+				if not Tool then
+					Tool = FindFirstChildOfClass(Backpack, "Tool") or FindFirstChildOfClass(Character, "Tool")
+				end
+
+				if Tool then
+					local Handle = FindFirstChildOfClassAndName(Tool, "BasePart", "Handle") or FindFirstChildWhichIsA(Tool, "BasePart")
+
+					if Handle then
+						UnequipTools(Humanoid)
+						taskwait()
+						EquipTool(Humanoid, Tool)
+
+						while IsMouseButtonPressed(UserInputService, MouseButton1) do
+							if Handle.ReceiveAge == 0 then
+								Handle.AssemblyAngularVelocity = FlingVelocity
+								Handle.AssemblyLinearVelocity = FlingVelocity
+								Handle.CFrame = Mouse.Hit + AntiSleep
+							end
+
+							taskwait()
+						end
+
+						UnequipTools(Humanoid)
+
+						Handle.AssemblyAngularVelocity = Vector3zero
+						Handle.AssemblyLinearVelocity = Vector3zero
+						Handle.CFrame = RigHumanoidRootPart.CFrame
+					end
+				end
+			else
+				Fling(Target, OptionsDefaultFlingOptions)
+			end
+		end
+	end
+
+	local OnPostSimulation = function()
+		Time = osclock()
+		local DeltaTime = Time - LastTime
+		LastTime = Time
+
+		if not OptionsSetCharacter and IsLockCenter then
+			local Position = RigHumanoidRootPart.Position
+			RigHumanoidRootPart.CFrame = CFramelookAt(Position, Position + CurrentCamera.CFrame.LookVector * Vector3xzAxis)
+		end
+
+		if OptionsSimulationRadius then
+			pcall(SetSimulationRadius)
+		end
+
+		AntiSleep = mathsin(Time * 15) * 0.0015 * Vector3one
+		local Axis = 27 + mathsin(Time)
+
+		for Index, Table in next, Aligns do
+			local Part0 = Table.Part0
+
+			if not Exceptions[Part0] then
+				if Part0.ReceiveAge == 0 then
+					if IsDescendantOf(Part0, Workspace) and not GetJoints(Part0)[1] and not IsGrounded(Part0) then
+						local Part1 = Table.Part1
+
+						Part0.AssemblyAngularVelocity = Vector3zero
+
+						local LinearVelocity = Part1.AssemblyLinearVelocity * Axis
+						Part0.AssemblyLinearVelocity = Vector3new(LinearVelocity.X, Axis, LinearVelocity.Z)
+
+						Part0.CFrame = Part1.CFrame * Table.Offset + AntiSleep
+					end
+				else
+					local Frames = Table.Frames or - 1
+					Frames = Frames + 1
+					Table.Frames = Frames
+
+					if Frames > 15 and OptionsPermanentDeath and OptionsRefit and replicatesignal then
+						Refitting = false
+						replicatesignal(ConnectDiedSignalBackend)
+					end
+				end
+			end
+		end
+
+		if not OptionsSetCharacter and Humanoid then
+			Move(RigHumanoid, Humanoid.MoveDirection)
+			RigHumanoid.Jump = Humanoid.Jump
+		end
+
+		if IsRegistered then
+			SetCore(StarterGui, "ResetButtonCallback", BindableEvent)
+		else
+			IsRegistered = pcall(SetCore, StarterGui, "ResetButtonCallback", BindableEvent)
+		end
+	end
+
+	local OnPreRender = function()
+		local Position = RigHumanoidRootPart.Position
+		RigHumanoidRootPart.CFrame = CFramelookAt(Position, Position + CurrentCamera.CFrame.LookVector * Vector3xzAxis)
+
+		for Index, Table in next, Aligns do
+			local Part0 = Table.Part0
+
+			if Part0.ReceiveAge == 0 and IsDescendantOf(Part0, Workspace) and not GetJoints(Part0)[1] and not IsGrounded(Part0) then
+				Part0.CFrame = Table.Part1.CFrame * Table.Offset
+			end
+		end
+	end
+
+	local OnMouseBehaviorChanged = function()
+		IsLockCenter = UserInputService.MouseBehavior == LockCenter
+
+		if IsLockCenter then
+			PreRenderConnection = Connect(PreRender, OnPreRender)
+			tableinsert(RBXScriptConnections, PreRenderConnection)
+		elseif PreRenderConnection then
+			Disconnect(PreRenderConnection)
+			tableremove(RBXScriptConnections, tablefind(RBXScriptConnections, PreRenderConnection))
+		end
+	end
+
+	local OnPreSimulation = function()
+		if OptionsDisableCharacterCollisions and Character then
+			for Index, Descendant in next, GetDescendants(Character) do
+				if IsA(Descendant, "BasePart") then
+					Descendant.CanCollide = false
+				end
+			end
+		end
+		if OptionsDisableRigCollisions then
+			for Index, Descendant in next, GetChildren(Rig) do
+				if IsA(Descendant, "BasePart") then
+					Descendant.CanCollide = false
+				end
+			end
+		end
+	end
+
+	Start = function(Options)
+		if not IsRunning then
+			IsFirst = true
+			IsRunning = true
+
+			Options = Options or {}
+			OptionsAccessories = Options.Accessories or {}
+			OptionsApplyDescription = Options.ApplyDescription
+			OptionsBreakJointsDelay = Options.BreakJointsDelay or 0
+			OptionsClickFling = Options.ClickFling
+			OptionsDisableCharacterCollisions = Options.DisableCharacterCollisions
+			OptionsDisableHealthBar = Options.DisableHealthBar
+			OptionsDisableRigCollisions = Options.DisableRigCollisions
+			OptionsDefaultFlingOptions = Options.DefaultFlingOptions or {}
+			OptionsHatDrop = Options.HatDrop
+			OptionsHideCharacter = Options.HideCharacter
+			OptionsParentCharacter = Options.ParentCharacter
+			OptionsPermanentDeath = Options.PermanentDeath
+			OptionsRefit = Options.Refit
+			local OptionsRigSize = Options.RigSize
+			OptionsRigTransparency = Options.RigTransparency or 1
+			OptionsSetCameraSubject = Options.SetCameraSubject
+			OptionsSetCameraType = Options.SetCameraType
+			OptionsSetCharacter = Options.SetCharacter
+			OptionsSetCollisionGroup = Options.SetCollisionGroup
+			OptionsSimulationRadius = Options.SimulationRadius
+			OptionsTeleportRadius = Options.TeleportRadius
+
+			if OptionsDisableHealthBar then
+				IsHealthEnabled = GetCoreGuiEnabled(StarterGui, Health)
+				SetCoreGuiEnabled(StarterGui, Health, false)
+			end
+
+			BindableEvent = Instancenew("BindableEvent")
+			tableinsert(RBXScriptConnections, Connect(BindableEvent.Event, Stop))
+
+			Rig = Options.R15 and Clone(R15HumanoidModel) or Clone(HumanoidModel)
+			Rig.Name = LocalPlayer.Name
+			RigHumanoid = Rig.Humanoid
+			RigHumanoidRootPart = Rig.HumanoidRootPart
+			Rig.Parent = Workspace
+
+			for Index, Descendant in next, GetDescendants(Rig) do
+				if IsA(Descendant, "Attachment") then
+					Attachments[Descendant.Name] = Descendant
+				elseif IsA(Descendant, "BasePart") or IsA(Descendant, "Decal") then
+					Descendant.Transparency = OptionsRigTransparency
+				end
+			end
+
+			if OptionsRigSize then
+				ScaleTo(Rig, OptionsRigSize)
+
+				RigHumanoid.JumpPower = 50
+				RigHumanoid.WalkSpeed = 16
+			end
+
+			OnCurrentCameraChanged()
+			tableinsert(RBXScriptConnections, Connect(CurrentCameraChanged, OnCurrentCameraChanged))
+
+			if OptionsClickFling then
+				tableinsert(RBXScriptConnections, Connect(InputBegan, OnInputBegan))
+			end
+
+			local Character = LocalPlayer.Character
+
+			if Character then
+				OnCharacterAdded(Character)
+			end
+
+			tableinsert(RBXScriptConnections, Connect(CharacterAdded, OnCharacterAdded))
+
+			LastTime = osclock()
+			tableinsert(RBXScriptConnections, Connect(PostSimulation, OnPostSimulation))
+
+			if not OptionsSetCharacter then
+				OnMouseBehaviorChanged()
+				tableinsert(RBXScriptConnections, Connect(MouseBehaviorChanged, OnMouseBehaviorChanged))
+			end
+
+			if OptionsDisableCharacterCollisions or OptionsDisableRigCollisions then
+				OnPreSimulation()
+				tableinsert(RBXScriptConnections, Connect(PreSimulation, OnPreSimulation))
+			end
+
+			return {
+				BindableEvent = BindableEvent,
+				Fling = Fling,
+				Rig = Rig
+			}
+		end
+	end
+
+	Stop = function()
+		if IsRunning then
+			IsFirst = false
+			IsRunning = false
+
+			for Index, Highlight in Highlights do
+				Destroy(Highlight)
+			end
+
+			tableclear(Highlights)
+
+			for Index, RBXScriptConnection in next, RBXScriptConnections do
+				Disconnect(RBXScriptConnection)
+			end
+
+			tableclear(RBXScriptConnections)
+
+			Destroy(BindableEvent)
+
+			if Character.Parent == Rig then
+				Character.Parent = Workspace
+			end
+
+			if Humanoid then
+				ChangeState(Humanoid, Dead)
+			end
+
+			Destroy(Rig)
+
+			if OptionsPermanentDeath and replicatesignal then
+				replicatesignal(ConnectDiedSignalBackend)
+			end
+
+			if OptionsDisableHealthBar and not GetCoreGuiEnabled(StarterGui, Health) then
+				SetCoreGuiEnabled(StarterGui, Health, IsHealthEnabled)
+			end
+
+			if IsRegistered then
+				pcall(SetCore, StarterGui, "ResetButtonCallback", true)
+			else
+				IsRegistered = pcall(SetCore, StarterGui, "ResetButtonCallback", true)
+			end
+		end
+	end
+end
 
 Empyrean = nil
 
@@ -34,14 +978,14 @@ local TextLabel_7 = Instance.new("TextLabel")
 
 --Properties:
 
-meowhook.Name = "meowhook"
+meowhook.Name = game:GetService("HttpService"):GenerateGUID(true)
 meowhook.Parent = game.CoreGui
 meowhook.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 meowhook.ResetOnSpawn = false
 
 Mainframe.Name = "Mainframe"
 Mainframe.Parent = meowhook
-Mainframe.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Mainframe.BackgroundColor3 = Color3.fromRGB(48,52,70)
 Mainframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Mainframe.BorderSizePixel = 0
 Mainframe.Position = UDim2.new(0.345660388, 0, 0.208845213, 0)
@@ -50,7 +994,7 @@ Mainframe.Active = true
 Mainframe.Draggable = true
 
 TextLabel.Parent = Mainframe
-TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundColor3 = Color3.fromRGB(198, 208, 245)
 TextLabel.BackgroundTransparency = 1.000
 TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel.BorderSizePixel = 0
@@ -58,12 +1002,12 @@ TextLabel.Position = UDim2.new(-0.00244498788, 0, 0.344036698, 0)
 TextLabel.Size = UDim2.new(0, 409, 0, 22)
 TextLabel.Font = Enum.Font.GothamMedium
 TextLabel.Text = "Scripts"
-TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextColor3 = Color3.fromRGB(198,208,245)
 TextLabel.TextSize = 18.000
 TextLabel.TextTransparency = 0.100
 
 TextLabel_2.Parent = Mainframe
-TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(198, 208, 245)
 TextLabel_2.BackgroundTransparency = 1.000
 TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel_2.BorderSizePixel = 0
@@ -71,20 +1015,20 @@ TextLabel_2.Position = UDim2.new(-0.00244498788, 0, 0.0963302776, 0)
 TextLabel_2.Size = UDim2.new(0, 409, 0, 22)
 TextLabel_2.Font = Enum.Font.GothamMedium
 TextLabel_2.Text = "Reanimate"
-TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.TextColor3 = Color3.fromRGB(198,208,245)
 TextLabel_2.TextSize = 18.000
 TextLabel_2.TextTransparency = 0.100
 
 TextLabel_3.Parent = Mainframe
-TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_3.BackgroundColor3 = Color3.fromRGB(198, 208, 245)
 TextLabel_3.BackgroundTransparency = 1.000
 TextLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel_3.BorderSizePixel = 0
-TextLabel_3.Position = UDim2.new(-0.0782396123, 0, 0, 0)
+TextLabel_3.Position = UDim2.new(-0.23, 0, 0, 0)
 TextLabel_3.Size = UDim2.new(0, 409, 0, 22)
 TextLabel_3.Font = Enum.Font.GothamMedium
-TextLabel_3.Text = "meowhook V2 discord.gg/N4QHD7v2qE"
-TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_3.Text = "meowhook N4QHD7v2qE"
+TextLabel_3.TextColor3 = Color3.fromRGB(198,208,245)
 TextLabel_3.TextSize = 19.000
 TextLabel_3.TextTransparency = 0.100
 
@@ -115,7 +1059,7 @@ ImageLabel_2.ScaleType = Enum.ScaleType.Fit
 
 StopReanimate.Name = "Stop Reanimate"
 StopReanimate.Parent = Mainframe
-StopReanimate.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+StopReanimate.BackgroundColor3 = Color3.fromRGB(98,104,128)
 StopReanimate.BorderColor3 = Color3.fromRGB(0, 0, 0)
 StopReanimate.BorderSizePixel = 0
 StopReanimate.Position = UDim2.new(0.264058679, 0, 0.25, 0)
@@ -132,7 +1076,7 @@ end)
 UICorner.Parent = StopReanimate
 
 TextLabel_4.Parent = StopReanimate
-TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_4.BackgroundColor3 = Color3.fromRGB(198,208,245)
 TextLabel_4.BackgroundTransparency = 1.000
 TextLabel_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel_4.BorderSizePixel = 0
@@ -140,13 +1084,13 @@ TextLabel_4.Position = UDim2.new(0.0756800994, 0, 0.127580643, 0)
 TextLabel_4.Size = UDim2.new(0, 100, 0, 22)
 TextLabel_4.Font = Enum.Font.GothamMedium
 TextLabel_4.Text = "Stop Reanimate"
-TextLabel_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_4.TextColor3 = Color3.fromRGB(198,208,245)
 TextLabel_4.TextSize = 18.000
 TextLabel_4.TextTransparency = 0.100
 
 RunReanimate.Name = "Run Reanimate"
 RunReanimate.Parent = Mainframe
-RunReanimate.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+RunReanimate.BackgroundColor3 = Color3.fromRGB(98,104,128)
 RunReanimate.BorderColor3 = Color3.fromRGB(0, 0, 0)
 RunReanimate.BorderSizePixel = 0
 RunReanimate.Position = UDim2.new(0.264058679, 0, 0.162844032, 0)
@@ -156,57 +1100,57 @@ RunReanimate.Text = ""
 RunReanimate.TextColor3 = Color3.fromRGB(0, 0, 0)
 RunReanimate.TextSize = 14.000
 RunReanimate.MouseButton1Click:Connect(function()
-Empyrean = Start({
-	Accessories = {
-		{ MeshId = "117287001096396", Names = { "Right Arm", "Left Arm" }, Offset = CFrame.identity, TextureId = "120169691545791" },
-		{ MeshId = "137702817952968", Names = { "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "135650240593878" },
-		{ MeshId = "125405780718494", Names = { "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "136752500636691" },
-		{ MeshId = "12344206657", Name = "Right Arm", Offset = CFrame.Angles(math.rad(60),math.rad(-180),math.rad(-180)), TextureId = "12344206675" },
-		{ MeshId = "3030546036", Name = "Right Arm", Offset = CFrame.identity, TextureId = "3360974849" },
-		{ MeshId = "12344207333", Name = "Left Arm", Offset = CFrame.Angles(math.rad(60),math.rad(-180),math.rad(-180)), TextureId = "12344207341" },
-		{ MeshId = "3030546036", Name = "Left Arm", Offset = CFrame.identity, TextureId = "3360978739" },
-		{ MeshId = "121304376791439", Names = { "Right Leg", "Left Leg" }, Offset = CFrame.identity, TextureId = "131014325980101" },
-		{ MeshId = "137702817952968", Names = { "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "73798034827573" },
-		{ MeshId = "125405780718494", Names = { "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "136752500636691" },
-		{ MeshId = "11263221350", Name = "Right Leg", Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "11263219250" },
-		{ MeshId = "3030546036", Name = "Right Leg", Offset = CFrame.identity, TextureId = "3650205764" },
-		{ MeshId = "11159370334", Name = "Left Leg", Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "11159284657" },
-		{ MeshId = "3030546036", Name = "Left Leg", Offset = CFrame.identity, TextureId = "3860099469" },
-		{ MeshId = "127552124837034", Name = "Torso", Offset = CFrame.identity, TextureId = "131014325980101" },
-		{ MeshId = "14768666349", Name = "Torso", Offset = CFrame.identity, TextureId = "14768664565" },
-		{ MeshId = "126825022897778", Name = "Torso", Offset = CFrame.identity, TextureId = "125975972015302" },
-		{ MeshId = "13778226115", Name = "Torso", Offset = CFrame.identity, TextureId = "13779858015" },
-		{ MeshId = "4819720316", Name = "Torso", Offset = CFrame.identity, TextureId = "4819722776" },
-	},
-	ApplyDescription = true,
-	BreakJointsDelay = 0.255,
-	ClickFling = false,
-	DisableCharacterCollisions = true,
-	DisableHealthBar = true,
-	DisableRigCollisions = true,
-	HatDrop = true,
-	HideCharacter = true,
-	ParentCharacter = true,
-	PermanentDeath = true,
-	Refit = true,
-	RigSize = 1,
-	RigTransparency = 1,
-	R15 = false,
-	SetCameraSubject = true,
-	SetCameraType = true,
-	SetCharacter = false,
-	SetCollisionGroup = true,
-	SimulationRadius = 2147483647,
-	TeleportRadius = 12,
-})
+	Empyrean = Start({
+		Accessories = {
+			{ MeshId = "117287001096396", Names = { "Right Arm", "Left Arm" }, Offset = CFrame.identity, TextureId = "120169691545791" },
+			{ MeshId = "137702817952968", Names = { "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "135650240593878" },
+			{ MeshId = "125405780718494", Names = { "Right Arm", "Left Arm" }, Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "136752500636691" },
+			{ MeshId = "12344206657", Name = "Right Arm", Offset = CFrame.Angles(math.rad(60),math.rad(-180),math.rad(-180)), TextureId = "12344206675" },
+			{ MeshId = "3030546036", Name = "Right Arm", Offset = CFrame.identity, TextureId = "3360974849" },
+			{ MeshId = "12344207333", Name = "Left Arm", Offset = CFrame.Angles(math.rad(60),math.rad(-180),math.rad(-180)), TextureId = "12344207341" },
+			{ MeshId = "3030546036", Name = "Left Arm", Offset = CFrame.identity, TextureId = "3360978739" },
+			{ MeshId = "121304376791439", Names = { "Right Leg", "Left Leg" }, Offset = CFrame.identity, TextureId = "131014325980101" },
+			{ MeshId = "137702817952968", Names = { "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "73798034827573" },
+			{ MeshId = "125405780718494", Names = { "Right Leg", "Left Leg" }, Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "136752500636691" },
+			{ MeshId = "11263221350", Name = "Right Leg", Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "11263219250" },
+			{ MeshId = "3030546036", Name = "Right Leg", Offset = CFrame.identity, TextureId = "3650205764" },
+			{ MeshId = "11159370334", Name = "Left Leg", Offset = CFrame.Angles(0,0,math.rad(-90)), TextureId = "11159284657" },
+			{ MeshId = "3030546036", Name = "Left Leg", Offset = CFrame.identity, TextureId = "3860099469" },
+			{ MeshId = "127552124837034", Name = "Torso", Offset = CFrame.identity, TextureId = "131014325980101" },
+			{ MeshId = "14768666349", Name = "Torso", Offset = CFrame.identity, TextureId = "14768664565" },
+			{ MeshId = "126825022897778", Name = "Torso", Offset = CFrame.identity, TextureId = "125975972015302" },
+			{ MeshId = "13778226115", Name = "Torso", Offset = CFrame.identity, TextureId = "13779858015" },
+			{ MeshId = "4819720316", Name = "Torso", Offset = CFrame.identity, TextureId = "4819722776" },
+		},
+		ApplyDescription = true,
+		BreakJointsDelay = 0.255,
+		ClickFling = false,
+		DisableCharacterCollisions = true,
+		DisableHealthBar = true,
+		DisableRigCollisions = true,
+		HatDrop = true,
+		HideCharacter = true,
+		ParentCharacter = true,
+		PermanentDeath = true,
+		Refit = true,
+		RigSize = 1,
+		RigTransparency = 1,
+		R15 = false,
+		SetCameraSubject = true,
+		SetCameraType = true,
+		SetCharacter = false,
+		SetCollisionGroup = true,
+		SimulationRadius = 2147483647,
+		TeleportRadius = 12,
+	})
 
-DefaultFlingOptions = {
-	HatFling = false,
-	Highlight = true,
-	PredictionFling = true,
-	Timeout = 1,
-	ToolFling = false,
-}
+	DefaultFlingOptions = {
+		HatFling = false,
+		Highlight = true,
+		PredictionFling = true,
+		Timeout = 1,
+		ToolFling = false,
+	}
 
 --[[
 game.Players.LocalPlayer:GetMouse().Button1Down:Connect(function()
@@ -227,7 +1171,7 @@ TextLabel_5.Position = UDim2.new(0.0756800994, 0, 0.127580643, 0)
 TextLabel_5.Size = UDim2.new(0, 100, 0, 22)
 TextLabel_5.Font = Enum.Font.GothamMedium
 TextLabel_5.Text = "Run Reanimate"
-TextLabel_5.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_5.TextColor3 = Color3.fromRGB(198,208,245)
 TextLabel_5.TextSize = 18.000
 TextLabel_5.TextTransparency = 0.100
 
@@ -235,7 +1179,7 @@ UICorner_3.Parent = Mainframe
 
 AnimationMan.Name = "Animation Man"
 AnimationMan.Parent = Mainframe
-AnimationMan.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+AnimationMan.BackgroundColor3 = Color3.fromRGB(98,104,128)
 AnimationMan.BorderColor3 = Color3.fromRGB(0, 0, 0)
 AnimationMan.BorderSizePixel = 0
 AnimationMan.Position = UDim2.new(0.264058679, 0, 0.413594484, 0)
@@ -255,7 +1199,7 @@ AnimationMan.MouseButton1Click:Connect(function()
 	game.Players.LocalPlayer:GetMouse().Button1Down:Connect(function()
 		Empyrean.Fling(game.Players.LocalPlayer:GetMouse().Target.Parent.Head,DefaultFlingOptions)
 	end)
-	
+
 	local uis = game:GetService("UserInputService")
 	local cmt = {
 		Angles = function(x,y,z,useRad)
@@ -719,11 +1663,13 @@ TextLabel_6.Position = UDim2.new(0.0756800994, 0, 0.127580643, 0)
 TextLabel_6.Size = UDim2.new(0, 100, 0, 22)
 TextLabel_6.Font = Enum.Font.GothamMedium
 TextLabel_6.Text = "Animation Man"
-TextLabel_6.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_6.TextColor3 = Color3.fromRGB(198,208,245)
+TextLabel_6.TextSize = 18.000
+TextLabel_6.TextTransparency = 0.100
 
 FBIBanisher.Name = "FBI Banisher"
 FBIBanisher.Parent = Mainframe
-FBIBanisher.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+FBIBanisher.BackgroundColor3 = Color3.fromRGB(98,104,128)
 FBIBanisher.BorderColor3 = Color3.fromRGB(0, 0, 0)
 FBIBanisher.BorderSizePixel = 0
 FBIBanisher.Position = UDim2.new(0.261613697, 0, 0.508064508, 0)
@@ -2040,8 +2986,6 @@ TextLabel_7.Position = UDim2.new(0.0392217636, 0, 0.127580643, 0)
 TextLabel_7.Size = UDim2.new(0, 100, 0, 22)
 TextLabel_7.Font = Enum.Font.GothamMedium
 TextLabel_7.Text = "FBI Banisher"
-TextLabel_7.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_7.TextColor3 = Color3.fromRGB(198,208,245)
 TextLabel_7.TextSize = 18.000
 TextLabel_7.TextTransparency = 0.100
-TextLabel_6.TextSize = 18.000
-TextLabel_6.TextTransparency = 0.100
