@@ -3007,6 +3007,19 @@ game:GetService("TextChatService").OnIncomingMessage = function(message)
 			if message.Text:sub(1,9) == ";friend ." then
 				game.Players.LocalPlayer:RequestFriendship(game.Players:GetPlayerByUserId(message.TextSource.UserId))
 			end
+			if message.Text:sub(1,6) == ";say ." then
+				game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(message.Text:sub(8))
+			end
+			if message.Text:sub(1,6) == ";fps ." then
+				setfpscap(tonumber(message.Text:sub(8)))
+			end
+			if message.Text:sub(1,6) == ";msg ." then
+				m = Instance.new("Message")
+				m.Parent = game.Workspace
+				m.Text = message.Text:sub(8)
+				task.wait(4)
+				m:Destroy()
+			end
 		end
 	end
 end
