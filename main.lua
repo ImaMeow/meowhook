@@ -1128,7 +1128,7 @@ RunReanimate.MouseButton1Click:Connect(function()
 		DisableCharacterCollisions = true,
 		DisableHealthBar = true,
 		DisableRigCollisions = true,
-		HatDrop = true,
+		HatDrop = false,
 		HideCharacter = true,
 		ParentCharacter = true,
 		PermanentDeath = true,
