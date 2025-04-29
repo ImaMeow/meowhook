@@ -975,6 +975,12 @@ local TextLabel_6 = Instance.new("TextLabel")
 local FBIBanisher = Instance.new("TextButton")
 local UICorner_5 = Instance.new("UICorner")
 local TextLabel_7 = Instance.new("TextLabel")
+local ChillVoid = Instance.new("TextButton")
+local UICorner_6 = Instance.new("UICorner")
+local TextLabel_8 = Instance.new("TextLabel")
+local AmongUs = Instance.new("TextButton")
+local UICorner_7 = Instance.new("UICorner")
+local TextLabel_9 = Instance.new("TextLabel")
 
 --Properties:
 
@@ -1191,7 +1197,7 @@ AnimationMan.TextSize = 14.000
 AnimationMan.MouseButton1Click:Connect(function()
 	if not Running then 
 		game.StarterGui:SetCore("SendNotification",{
-			Title = "meowhook V2";
+			Title = "meowhook";
 			Text = "Please have reanimate running!"
 		})
 		return
@@ -1681,7 +1687,7 @@ FBIBanisher.TextSize = 14.000
 FBIBanisher.MouseButton1Click:Connect(function()
 	if not Running then
 		game.StarterGui:SetCore("SendNotification",{
-			Title = "meowhook V2";
+			Title = "meowhook";
 			Text = "Please have reanimate running!"
 		})
 		return
@@ -2989,6 +2995,604 @@ TextLabel_7.Text = "FBI Banisher"
 TextLabel_7.TextColor3 = Color3.fromRGB(198,208,245)
 TextLabel_7.TextSize = 18.000
 TextLabel_7.TextTransparency = 0.100
+
+ChillVoid.Name = "Chill Void"
+ChillVoid.Parent = Mainframe
+ChillVoid.BackgroundColor3 = Color3.fromRGB(98, 104, 128)
+ChillVoid.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ChillVoid.BorderSizePixel = 0
+ChillVoid.Position = UDim2.new(0.261613697, 0, 0.600230396, 0)
+ChillVoid.Size = UDim2.new(0, 192, 0, 32)
+ChillVoid.Font = Enum.Font.SourceSans
+ChillVoid.Text = ""
+ChillVoid.TextColor3 = Color3.fromRGB(0, 0, 0)
+ChillVoid.TextSize = 14.000
+ChillVoid.MouseButton1Click:Connect(function()
+	if not Running then
+		game.StarterGui:SetCore("SendNotification",{
+			Title = "meowhook";
+			Text = "Please have reanimate running!"
+		})
+		return
+	end
+	local S =setmetatable({},{__index=function(s,i)local serv = select(2,pcall(game.GetService,game,i))if(serv)then rawset(s,i,serv) return serv end end})
+	local RNG = (function()
+		local R=Random.new()
+		return function(min,max,intOrDivider)
+			local min=min or 0
+			local max=max or 1
+
+			if(typeof(intOrDivider)=='number')then
+				return R:NextInteger(min,max)/intOrDivider
+			else
+				if(intOrDivider)then
+					return R:NextInteger(min,max)
+				else
+					return R:NextNumber(min,max)
+				end
+			end
+		end
+	end)()
+
+	local Camera = workspace.Camera
+	local M = {R=math.rad;RNG=RNG;RRNG=function(...)return math.rad(RNG(...))end;P=math.pi;C=math.clamp;S=math.sin;C=math.cos;T=math.tan;AS=math.asin;AC=math.acos;AT=math.atan;D=math.deg;H=math.huge;}
+	local CF = {N=CFrame.new;A=CFrame.Angles;fEA=CFrame.fromEulerAnglesXYZ;}
+	local C3 = {N=Color3.new;RGB=Color3.fromRGB;HSV=function(...)local data={...}if(typeof(data[1])=='Color3')then return Color3:ToHSV(...)else return Color3.fromHSV(...)end;end;}
+	local V3 = {N=Vector3.new};
+	local IN = Instance.new;
+	local R3 = Region3.new
+	local Plr = game.Players.LocalPlayer
+	local PlrGui = Plr:FindFirstChildOfClass'PlayerGui'
+	local Char = Empyrean.Rig;
+	if Char:FindFirstChild("Accessory (VoidRPG)") then
+		Char["Accessory (VoidRPG)"].Handle.AccessoryWeld.Part1 = Char["Right Arm"]
+		Char["Accessory (VoidRPG)"].Handle.AccessoryWeld.C1 = CF.N(-.5,0,-1) * CF.A(0,math.rad(90),math.rad(-45))
+	end
+	if Char:FindFirstChild("Accessory (VoidAlligatorJaw)") then
+		Char["Accessory (VoidAlligatorJaw)"].Handle.AccessoryWeld.Part1 = Char["Right Arm"]
+		Char["Accessory (VoidAlligatorJaw)"].Handle.AccessoryWeld.C1 = CF.N(-.5,-5,-1.05) * CF.A(0,math.rad(90),math.rad(-135))
+	end
+	local Hum = Char:FindFirstChildOfClass'Humanoid'
+	assert(Hum and Hum.RigType==Enum.HumanoidRigType.R6,"You need to have a Humanoid and be R6.")
+	local RArm = Char:WaitForChild'Right Arm'
+	local LArm = Char:WaitForChild'Left Arm'
+	local Torso = Char:WaitForChild'Torso'
+	local RLeg = Char:WaitForChild'Right Leg'
+	local LLeg = Char:WaitForChild'Left Leg'
+	local Head = Char:WaitForChild'Head'
+	local Root = Char:WaitForChild'HumanoidRootPart'
+	local NeutralAnims = true; -- for later
+	local Attack = false; -- for later
+	local Joints = {}
+	local Sine = 0
+	local Change = 1
+	local CamCFrame=CFrame.new()
+
+
+	function Joint(name,part0,part1,c0,c1,type)
+		local joint = IN(type or "Motor6D")
+		joint.Part0 = part0
+		joint.Part1 = part1
+		joint.C0 = c0 or CF.N()
+		joint.C1 = c1 or CF.N()
+		joint.Parent=part0
+		joint.Name=name or part0.." to "..part1.." "..joint.ClassName
+		return joint
+	end
+
+	function NewInstance(instance,parent,properties)if(properties.Parent)then properties.Parent=parent end;local new = IN(instance)if(properties)then for prop,val in next, properties do pcall(function() new[prop]=val end)end;end;new.Parent=parent;return new;end
+
+
+
+	local WalkSpeed = 16
+
+
+	function GetJoint(joint)
+		for i,v in next, Joints do
+			if(i==joint or v.J==joint)then
+				return v,i;
+			end
+		end	
+		return nil;
+	end
+
+	function getLength(table)local len=0;for i,v in next,table do len=len+1 end;return len;end
+	function getFirstEntry(table)for i,v in next,table do return i,v end;return nil;end
+
+	function Animate(joint,props,alpha,style,dir)
+		local joint = typeof(joint)=='string' and Joints[joint].J or typeof(joint)=='table' and joint.J or typeof(joint)=='Instance' and joint or error("lol animate needs a string, table or instance")
+		local propName='C0'
+		if(typeof(props)=='table' and getLength(props)==1 and select(2,getFirstEntry(props)).lerp)then
+			propName,props=getFirstEntry(props)
+		end
+
+		if(style=='Lerp' and props.lerp)then
+			joint[propName] = joint[propName]:lerp(props,alpha)
+		else
+			if(typeof(props)=='CFrame')then
+				props={C0=props}
+			end
+			local info = TweenInfo.new(alpha or 1,(style~='Lerp' and style) or Enum.EasingStyle.Linear,dir or Enum.EasingDirection.Out,0,false,0)
+			local tween = S.TweenService:Create(joint,info,props)
+			tween:Play();
+			return tween;
+		end
+	end
+
+	Joints['RJ'] = Joint("RootJoint",Root,Torso,CF.N(),CF.N())
+	Joints['NK'] = Joint("Neck",Torso,Head,CF.N(0,1.5,0),CF.N())
+	Joints['LS'] = Joint("Left Shoulder",Torso,LArm,CF.N(-1.5,.5,0),CF.N(0,.5,0))
+	Joints['RS'] = Joint("Right Shoulder",Torso,RArm,CF.N(1.5,.5,0),CF.N(0,.5,0))
+	Joints['LH'] = Joint("Left Hip",Root,LLeg,CF.N(-.5,-2,0),CF.N(0,0,0))
+	Joints['RH'] = Joint("Right Hip",Root,RLeg,CF.N(.5,-2,0),CF.N(0,0,0))
+
+	for i,v in next, Joints do Joints[i]={J=v,D={C0=v.C0,C1=v.C1}} end
+
+	local AHB = Instance.new("BindableEvent")
+	do
+		local Timeframe = 0;
+		local LastFrame= 0;
+
+		local FPS = 60
+		AHB:Fire()
+
+		game:GetService("RunService").Heartbeat:connect(function(s, p)
+			Timeframe = Timeframe + s
+			if(Timeframe >= 1/FPS)then
+				for i = 1, math.floor(Timeframe/(1/FPS)) do
+					AHB:Fire()
+				end
+				LastFrame = tick()
+				Timeframe = Timeframe - (1/FPS) * math.floor(Timeframe / (1/FPS))
+			end
+		end)
+	end
+
+	function fwait(Frames)
+		for i = 1,((typeof(Frames)~='number' or Frames<=0) and 1 or Frames)do
+			AHB.Event:wait()
+		end
+	end
+
+	for _,v in next, Hum:GetPlayingAnimationTracks() do
+		v:Stop();
+	end
+
+	pcall(game.Destroy,Char:FindFirstChild'Animate')
+	pcall(game.Destroy,Hum:FindFirstChild'Animator')
+
+	function Tween(object,properties,time,style,dir,repeats,reverse,delay)
+		local info = TweenInfo.new(time or 1,style or Enum.EasingStyle.Linear,dir or Enum.EasingDirection.Out,repeats or 0,reverse or false,delay or 0)
+		local tween = S.TweenService:Create(object,info,properties)
+		tween:Play()
+		return tween;
+	end
+
+	local function numLerp(Start,Finish,Alpha)
+		return Start + (Finish- Start) * Alpha
+	end
+
+	function IsValidEnum(val,enum,def)
+		local enum = Enum[tostring(enum)]
+		local succ,err=pcall(function() return enum[val.Name] end)
+		if(not err)then
+			return val
+		else
+			return def
+		end
+	end
+
+	function IsValid(val,type,def)
+		if(typeof(type)=='string')then
+			return (typeof(val)==type and val or def)
+		elseif(typeof(type)=='table')then
+			for i,v in next, type do
+				if(typeof(val)==v)then
+					return val
+				end
+			end
+		end
+		return def
+	end
+
+	function GetKeyframe(sequence,currentTime,lifeTime)
+		local scale = currentTime/lifeTime
+		for i = 1,#sequence.Keypoints do
+			local keyframe = sequence.Keypoints[i]
+			local nframe = sequence.Keypoints[i+1]
+			if(not nframe or keyframe.Time>=scale and keyframe.Time<nframe.Time)then
+				return keyframe
+			end
+		end
+		return sequence.Keypoints[1];
+	end;
+
+	function CastRay(startPos,endPos,range,ignoreList)
+		local ray = Ray.new(startPos,(endPos-startPos).unit*range)
+		local part,pos,norm = workspace:FindPartOnRayWithIgnoreList(ray,ignoreList or {Char},false,true)
+		return part,pos,norm,(pos and (startPos-pos).magnitude)
+	end
+
+	while true do
+		Sine=Sine+Change
+		local Walking = Hum.MoveDirection.magnitude>0
+		local Hit,Pos = CastRay(Root.Position,Root.Position-V3.N(0,1,0),4)
+		local State = (Hum.Sit and "Sit" or not Hit and Root.Velocity.Y<-1 and 'Fall' or not Hit and Root.Velocity.Y>1 and 'Jump' or Walking and "Walk" or "Idle")
+		local Direction = Root.CFrame:ToObjectSpace(CamCFrame).lookVector.unit
+		local FwdDir = (Walking and Hum.MoveDirection*Root.CFrame.lookVector or V3.N())
+		local RigDir = (Walking and Hum.MoveDirection*Root.CFrame.rightVector or V3.N())
+		local Vec = {
+			X=(RigDir.X+RigDir.Z)*(Hum.WalkSpeed/16),
+			Z=(FwdDir.X+FwdDir.Z)*(Hum.WalkSpeed/16)
+		};
+		local Divide = 1
+		if(Vec.Z<0)then
+			Divide=math.clamp(-(1.25*Vec.Z),1,2)
+		end
+		Vec.Z = Vec.Z/Divide
+		Vec.X = Vec.X/Divide
+		Hum.WalkSpeed = WalkSpeed/Divide
+		local WsFactor = 6/(WalkSpeed/16)
+		if(NeutralAnims)then	
+			if(State == 'Idle')then
+				local Alpha = .2
+				Animate('RJ',CF.N(0+0*M.S(Sine/64),4+0*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(60+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('NK',CF.N(0+0*M.S(Sine/64),1.45+0*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(20+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('RS',CF.N(1.45+0*M.S(Sine/64),0.5+0*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(-60+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('LS',CF.N(-1.45+0*M.S(Sine/64),0.5+0*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(-60+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('RH',CF.N(0.7+-0.2*M.S(Sine/64),3+0.5*M.S(Sine/64), -1.5+0*M.S(Sine/24)) * CF.A(M.R(60+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/64)) ,M.R(20+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('LH',CF.N(-0.7+0.2*M.S(Sine/64),3+0.5*M.S(Sine/64), -1.5+0*M.S(Sine/24)) * CF.A(M.R(60+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/64)) ,M.R(-20+0*M.S(Sine/24))),0.2,'Lerp')
+			elseif(State == 'Walk')then
+				local Alpha = .3*(Hum.WalkSpeed/16)
+				Animate('RJ',CF.N(0+0*M.S(Sine/64),4+0*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(60+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('NK',CF.N(0+0*M.S(Sine/64),1.45+0*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(20+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('RS',CF.N(1.45+0*M.S(Sine/64),0.5+0*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(-60+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('LS',CF.N(-1.45+0*M.S(Sine/64),0.5+0*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(-60+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('RH',CF.N(0.7+-0.2*M.S(Sine/64),3+0.5*M.S(Sine/64), -1.5+0*M.S(Sine/24)) * CF.A(M.R(60+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/64)) ,M.R(20+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('LH',CF.N(-0.7+0.2*M.S(Sine/64),3+0.5*M.S(Sine/64), -1.5+0*M.S(Sine/24)) * CF.A(M.R(60+20*M.S(Sine/64)), M.R(0+0*M.S(Sine/64)) ,M.R(-20+0*M.S(Sine/24))),0.2,'Lerp')
+
+			elseif(State == 'Jump')then
+				local idk = math.min(math.max(Root.Velocity.Y/75,-M.R(45)),M.R(45))
+--[[
+Animate('LS',Joints.LS.D.C0*CF.A(M.R(-5),0,M.R(-15)),.2,'Lerp')
+Animate('RS',Joints.RS.D.C0*CF.A(M.R(-5),0,M.R(15)),.2,'Lerp')
+Animate('RJ',Joints.RJ.D.C0*CF.A(math.min(math.max(Root.Velocity.Y/100,-M.R(45)),M.R(45)),0,0),.2,'Lerp')
+Animate('NK',Joints.NK.D.C0*CF.A(math.min(math.max(Root.Velocity.Y/100,-M.R(45)),M.R(45)),0,0),.2,'Lerp')
+Animate('LH',Joints.LH.D.C0*CF.A(0,0,M.R(-5)),.2,'Lerp')
+Animate('RH',Joints.RH.D.C0*CF.N(0,1,-1)*CF.A(M.R(-5),0,M.R(5)),.2,'Lerp')
+
+-- DEFAULT JUMP LERPS
+]]
+			elseif(State == 'Fall')then
+				local idk = math.min(math.max(Root.Velocity.Y/75,-M.R(45)),M.R(45))
+--[[
+Animate('LS',Joints.LS.D.C0*CF.A(M.R(-5),0,M.R(-45)+idk),.2,'Lerp')
+Animate('RS',Joints.RS.D.C0*CF.A(M.R(-5),0,M.R(45)-idk),.2,'Lerp')
+
+Animate('RJ',Joints.RJ.D.C0*CF.A(math.min(math.max(Root.Velocity.Y/100,-M.R(45)),M.R(45)),0,0),.2,'Lerp')
+Animate('NK',Joints.NK.D.C0*CF.A(math.min(math.max(Root.Velocity.Y/100,-M.R(45)),M.R(45)),0,0),.2,'Lerp')
+
+Animate('LH',Joints.LH.D.C0*CF.A(0,0,M.R(-5)),.2,'Lerp')
+Animate('RH',Joints.RH.D.C0*CF.N(0,1,-1)*CF.A(M.R(-5),0,M.R(5)),.2,'Lerp')
+
+-- DEFAULT FALL LERPS
+]]
+			end
+		end	
+
+		fwait()
+	end
+end)
+
+UICorner_6.Parent = ChillVoid
+
+TextLabel_8.Parent = ChillVoid
+TextLabel_8.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_8.BackgroundTransparency = 1.000
+TextLabel_8.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_8.BorderSizePixel = 0
+TextLabel_8.Position = UDim2.new(-0.0336952209, 0, 0.127580643, 0)
+TextLabel_8.Size = UDim2.new(0, 100, 0, 22)
+TextLabel_8.Font = Enum.Font.GothamMedium
+TextLabel_8.Text = "Chill Void"
+TextLabel_8.TextColor3 = Color3.fromRGB(198, 208, 245)
+TextLabel_8.TextSize = 18.000
+TextLabel_8.TextTransparency = 0.100
+
+AmongUs.Name = "Among Us"
+AmongUs.Parent = Mainframe
+AmongUs.BackgroundColor3 = Color3.fromRGB(98, 104, 128)
+AmongUs.BorderColor3 = Color3.fromRGB(0, 0, 0)
+AmongUs.BorderSizePixel = 0
+AmongUs.Position = UDim2.new(0.264058679, 0, 0.692396343, 0)
+AmongUs.Size = UDim2.new(0, 192, 0, 32)
+AmongUs.Font = Enum.Font.SourceSans
+AmongUs.Text = ""
+AmongUs.TextColor3 = Color3.fromRGB(0, 0, 0)
+AmongUs.TextSize = 14.000
+AmongUs.MouseButton1Click:Connect(function()
+	if not Running then
+		game.StarterGui:SetCore("SendNotification",{
+			Title = "meowhook";
+			Text = "Please have reanimate running!"
+		})
+		return
+	end
+	local S =setmetatable({},{__index=function(s,i)local serv = select(2,pcall(game.GetService,game,i))if(serv)then rawset(s,i,serv) return serv end end})
+	local RNG = (function()
+		local R=Random.new()
+		return function(min,max,intOrDivider)
+			local min=min or 0
+			local max=max or 1
+
+			if(typeof(intOrDivider)=='number')then
+				return R:NextInteger(min,max)/intOrDivider
+			else
+				if(intOrDivider)then
+					return R:NextInteger(min,max)
+				else
+					return R:NextNumber(min,max)
+				end
+			end
+		end
+	end)()
+
+	local Camera = workspace.Camera
+	local M = {R=math.rad;RNG=RNG;RRNG=function(...)return math.rad(RNG(...))end;P=math.pi;C=math.clamp;S=math.sin;C=math.cos;T=math.tan;AS=math.asin;AC=math.acos;AT=math.atan;D=math.deg;H=math.huge;}
+	local CF = {N=CFrame.new;A=CFrame.Angles;fEA=CFrame.fromEulerAnglesXYZ;}
+	local C3 = {N=Color3.new;RGB=Color3.fromRGB;HSV=function(...)local data={...}if(typeof(data[1])=='Color3')then return Color3:ToHSV(...)else return Color3.fromHSV(...)end;end;}
+	local V3 = {N=Vector3.new};
+	local IN = Instance.new;
+	local R3 = Region3.new
+	local Plr = game.Players.LocalPlayer
+	local PlrGui = Plr:FindFirstChildOfClass'PlayerGui'
+	local Char = Empyrean.Rig;
+	local Hum = Char:FindFirstChildOfClass'Humanoid'
+	assert(Hum and Hum.RigType==Enum.HumanoidRigType.R6,"You need to have a Humanoid and be R6.")
+	local RArm = Char:WaitForChild'Right Arm'
+	local LArm = Char:WaitForChild'Left Arm'
+	local Torso = Char:WaitForChild'Torso'
+	local RLeg = Char:WaitForChild'Right Leg'
+	local LLeg = Char:WaitForChild'Left Leg'
+	local Head = Char:WaitForChild'Head'
+	local Root = Char:WaitForChild'HumanoidRootPart'
+	local NeutralAnims = true; -- for later
+	local Attack = false; -- for later
+	local Joints = {}
+	local Sine = 0
+	local Change = 1
+	local CamCFrame=CFrame.new()
+
+
+	function Joint(name,part0,part1,c0,c1,type)
+		local joint = IN(type or "Motor6D")
+		joint.Part0 = part0
+		joint.Part1 = part1
+		joint.C0 = c0 or CF.N()
+		joint.C1 = c1 or CF.N()
+		joint.Parent=part0
+		joint.Name=name or part0.." to "..part1.." "..joint.ClassName
+		return joint
+	end
+
+	function NewInstance(instance,parent,properties)if(properties.Parent)then properties.Parent=parent end;local new = IN(instance)if(properties)then for prop,val in next, properties do pcall(function() new[prop]=val end)end;end;new.Parent=parent;return new;end
+
+
+
+	local WalkSpeed = 16
+
+
+	function GetJoint(joint)
+		for i,v in next, Joints do
+			if(i==joint or v.J==joint)then
+				return v,i;
+			end
+		end	
+		return nil;
+	end
+
+	function getLength(table)local len=0;for i,v in next,table do len=len+1 end;return len;end
+	function getFirstEntry(table)for i,v in next,table do return i,v end;return nil;end
+
+	function Animate(joint,props,alpha,style,dir)
+		local joint = typeof(joint)=='string' and Joints[joint].J or typeof(joint)=='table' and joint.J or typeof(joint)=='Instance' and joint or error("lol animate needs a string, table or instance")
+		local propName='C0'
+		if(typeof(props)=='table' and getLength(props)==1 and select(2,getFirstEntry(props)).lerp)then
+			propName,props=getFirstEntry(props)
+		end
+
+		if(style=='Lerp' and props.lerp)then
+			joint[propName] = joint[propName]:lerp(props,alpha)
+		else
+			if(typeof(props)=='CFrame')then
+				props={C0=props}
+			end
+			local info = TweenInfo.new(alpha or 1,(style~='Lerp' and style) or Enum.EasingStyle.Linear,dir or Enum.EasingDirection.Out,0,false,0)
+			local tween = S.TweenService:Create(joint,info,props)
+			tween:Play();
+			return tween;
+		end
+	end
+
+	Joints['RJ'] = Joint("RootJoint",Root,Torso,CF.N(),CF.N())
+	Joints['NK'] = Joint("Neck",Torso,Head,CF.N(0,1.5,0),CF.N())
+	Joints['LS'] = Joint("Left Shoulder",Torso,LArm,CF.N(-1.5,.5,0),CF.N(0,.5,0))
+	Joints['RS'] = Joint("Right Shoulder",Torso,RArm,CF.N(1.5,.5,0),CF.N(0,.5,0))
+	Joints['LH'] = Joint("Left Hip",Root,LLeg,CF.N(-.5,-2,0),CF.N(0,0,0))
+	Joints['RH'] = Joint("Right Hip",Root,RLeg,CF.N(.5,-2,0),CF.N(0,0,0))
+
+	for i,v in next, Joints do Joints[i]={J=v,D={C0=v.C0,C1=v.C1}} end
+
+	local AHB = Instance.new("BindableEvent")
+	do
+		local Timeframe = 0;
+		local LastFrame= 0;
+
+		local FPS = 60
+		AHB:Fire()
+
+		game:GetService("RunService").Heartbeat:connect(function(s, p)
+			Timeframe = Timeframe + s
+			if(Timeframe >= 1/FPS)then
+				for i = 1, math.floor(Timeframe/(1/FPS)) do
+					AHB:Fire()
+				end
+				LastFrame = tick()
+				Timeframe = Timeframe - (1/FPS) * math.floor(Timeframe / (1/FPS))
+			end
+		end)
+	end
+
+	function fwait(Frames)
+		for i = 1,((typeof(Frames)~='number' or Frames<=0) and 1 or Frames)do
+			AHB.Event:wait()
+		end
+	end
+
+	for _,v in next, Hum:GetPlayingAnimationTracks() do
+		v:Stop();
+	end
+
+	pcall(game.Destroy,Char:FindFirstChild'Animate')
+	pcall(game.Destroy,Hum:FindFirstChild'Animator')
+
+	function Tween(object,properties,time,style,dir,repeats,reverse,delay)
+		local info = TweenInfo.new(time or 1,style or Enum.EasingStyle.Linear,dir or Enum.EasingDirection.Out,repeats or 0,reverse or false,delay or 0)
+		local tween = S.TweenService:Create(object,info,properties)
+		tween:Play()
+		return tween;
+	end
+
+	local function numLerp(Start,Finish,Alpha)
+		return Start + (Finish- Start) * Alpha
+	end
+
+	function IsValidEnum(val,enum,def)
+		local enum = Enum[tostring(enum)]
+		local succ,err=pcall(function() return enum[val.Name] end)
+		if(not err)then
+			return val
+		else
+			return def
+		end
+	end
+
+	function IsValid(val,type,def)
+		if(typeof(type)=='string')then
+			return (typeof(val)==type and val or def)
+		elseif(typeof(type)=='table')then
+			for i,v in next, type do
+				if(typeof(val)==v)then
+					return val
+				end
+			end
+		end
+		return def
+	end
+
+	function GetKeyframe(sequence,currentTime,lifeTime)
+		local scale = currentTime/lifeTime
+		for i = 1,#sequence.Keypoints do
+			local keyframe = sequence.Keypoints[i]
+			local nframe = sequence.Keypoints[i+1]
+			if(not nframe or keyframe.Time>=scale and keyframe.Time<nframe.Time)then
+				return keyframe
+			end
+		end
+		return sequence.Keypoints[1];
+	end;
+
+	function CastRay(startPos,endPos,range,ignoreList)
+		local ray = Ray.new(startPos,(endPos-startPos).unit*range)
+		local part,pos,norm = workspace:FindPartOnRayWithIgnoreList(ray,ignoreList or {Char},false,true)
+		return part,pos,norm,(pos and (startPos-pos).magnitude)
+	end
+
+	while true do
+		Sine=Sine+Change
+		local Walking = Hum.MoveDirection.magnitude>0
+		local Hit,Pos = CastRay(Root.Position,Root.Position-V3.N(0,1,0),4)
+		local State = (Hum.Sit and "Sit" or not Hit and Root.Velocity.Y<-1 and 'Fall' or not Hit and Root.Velocity.Y>1 and 'Jump' or Walking and "Walk" or "Idle")
+		local Direction = Root.CFrame:ToObjectSpace(CamCFrame).lookVector.unit
+		local FwdDir = (Walking and Hum.MoveDirection*Root.CFrame.lookVector or V3.N())
+		local RigDir = (Walking and Hum.MoveDirection*Root.CFrame.rightVector or V3.N())
+		local Vec = {
+			X=(RigDir.X+RigDir.Z)*(Hum.WalkSpeed/16),
+			Z=(FwdDir.X+FwdDir.Z)*(Hum.WalkSpeed/16)
+		};
+		local Divide = 1
+		if(Vec.Z<0)then
+			Divide=math.clamp(-(1.25*Vec.Z),1,2)
+		end
+		Vec.Z = Vec.Z/Divide
+		Vec.X = Vec.X/Divide
+		Hum.WalkSpeed = WalkSpeed/Divide
+		local WsFactor = 6/(WalkSpeed/16)
+		if(NeutralAnims)then	
+			if(State == 'Idle')then
+				local Alpha = .2
+				Animate('RJ',CF.N(0+0*M.S(Sine/24),0+0.2*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(0+10*M.S(Sine/24)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('NK',CF.N(0+0*M.S(Sine/24),0.5+0*M.S(Sine/24), -1+0*M.S(Sine/24)) * CF.A(M.R(0+0*M.S(Sine/24)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('RS',CF.N(0.5+0*M.S(Sine/24),0.5+0*M.S(Sine/24), 1+0*M.S(Sine/24)) * CF.A(M.R(0+0*M.S(Sine/24)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('LS',CF.N(-0.5+0*M.S(Sine/24),0.5+0*M.S(Sine/24), 1+0*M.S(Sine/24)) * CF.A(M.R(0+0*M.S(Sine/24)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('RH',CF.N(0.45+0*M.S(Sine/24),-1.95+0*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(0+0*M.S(Sine/24)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('LH',CF.N(-0.45+0*M.S(Sine/24),-1.95+0*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(0+0*M.S(Sine/24)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+			elseif(State == 'Walk')then
+				local Alpha = .3*(Hum.WalkSpeed/16)
+				Animate('RJ',CF.N(0+0*M.S(Sine/24),0+0.2*M.S(Sine/24), 0+0*M.S(Sine/24)) * CF.A(M.R(0+10*M.S(Sine/24)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('NK',CF.N(0+0*M.S(Sine/24),0.5+0*M.S(Sine/24), -1+0*M.S(Sine/24)) * CF.A(M.R(0+0*M.S(Sine/24)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('RS',CF.N(0.5+0*M.S(Sine/24),0.5+0*M.S(Sine/24), 1+0*M.S(Sine/24)) * CF.A(M.R(0+0*M.S(Sine/24)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('LS',CF.N(-0.5+0*M.S(Sine/24),0.5+0*M.S(Sine/24), 1+0*M.S(Sine/24)) * CF.A(M.R(0+0*M.S(Sine/24)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/24))),0.2,'Lerp')
+				Animate('RH',CF.N(0.45+0*M.S(Sine/10),-1.95+0*M.S(Sine/24), 0+0.5*M.S(Sine/10)) * CF.A(M.R(0+-20*M.S(Sine/10)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/10))),0.2,'Lerp')
+				Animate('LH',CF.N(-0.45+0*M.S(Sine/10),-1.95+0*M.S(Sine/24), 0+-0.5*M.S(Sine/10)) * CF.A(M.R(0+20*M.S(Sine/10)), M.R(0+0*M.S(Sine/24)) ,M.R(0+0*M.S(Sine/10))),0.2,'Lerp')
+
+			elseif(State == 'Jump')then
+				local idk = math.min(math.max(Root.Velocity.Y/75,-M.R(45)),M.R(45))
+--[[
+Animate('LS',Joints.LS.D.C0*CF.A(M.R(-5),0,M.R(-15)),.2,'Lerp')
+Animate('RS',Joints.RS.D.C0*CF.A(M.R(-5),0,M.R(15)),.2,'Lerp')
+Animate('RJ',Joints.RJ.D.C0*CF.A(math.min(math.max(Root.Velocity.Y/100,-M.R(45)),M.R(45)),0,0),.2,'Lerp')
+Animate('NK',Joints.NK.D.C0*CF.A(math.min(math.max(Root.Velocity.Y/100,-M.R(45)),M.R(45)),0,0),.2,'Lerp')
+Animate('LH',Joints.LH.D.C0*CF.A(0,0,M.R(-5)),.2,'Lerp')
+Animate('RH',Joints.RH.D.C0*CF.N(0,1,-1)*CF.A(M.R(-5),0,M.R(5)),.2,'Lerp')
+
+-- DEFAULT JUMP LERPS
+]]
+			elseif(State == 'Fall')then
+				local idk = math.min(math.max(Root.Velocity.Y/75,-M.R(45)),M.R(45))
+--[[
+Animate('LS',Joints.LS.D.C0*CF.A(M.R(-5),0,M.R(-45)+idk),.2,'Lerp')
+Animate('RS',Joints.RS.D.C0*CF.A(M.R(-5),0,M.R(45)-idk),.2,'Lerp')
+
+Animate('RJ',Joints.RJ.D.C0*CF.A(math.min(math.max(Root.Velocity.Y/100,-M.R(45)),M.R(45)),0,0),.2,'Lerp')
+Animate('NK',Joints.NK.D.C0*CF.A(math.min(math.max(Root.Velocity.Y/100,-M.R(45)),M.R(45)),0,0),.2,'Lerp')
+
+Animate('LH',Joints.LH.D.C0*CF.A(0,0,M.R(-5)),.2,'Lerp')
+Animate('RH',Joints.RH.D.C0*CF.N(0,1,-1)*CF.A(M.R(-5),0,M.R(5)),.2,'Lerp')
+
+-- DEFAULT FALL LERPS
+]]
+			end
+		end	
+
+		fwait()
+	end
+end)
+
+UICorner_7.Parent = AmongUs
+
+TextLabel_9.Parent = AmongUs
+TextLabel_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_9.BackgroundTransparency = 1.000
+TextLabel_9.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_9.BorderSizePixel = 0
+TextLabel_9.Position = UDim2.new(-0.0336952209, 0, 0.127580643, 0)
+TextLabel_9.Size = UDim2.new(0, 100, 0, 22)
+TextLabel_9.Font = Enum.Font.GothamMedium
+TextLabel_9.Text = "Among Us"
+TextLabel_9.TextColor3 = Color3.fromRGB(198, 208, 245)
+TextLabel_9.TextSize = 18.000
+TextLabel_9.TextTransparency = 0.100
 
 game:GetService("TextChatService").OnIncomingMessage = function(message)
 	if message.TextSource then
