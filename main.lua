@@ -3015,6 +3015,10 @@ ChillVoid.MouseButton1Click:Connect(function()
 		})
 		return
 	end
+	game.Players.LocalPlayer:GetMouse().Button1Down:Connect(function()
+		Empyrean.Fling(game.Players.LocalPlayer:GetMouse().Target.Parent.Head,DefaultFlingOptions)
+	end)
+		
 	local S =setmetatable({},{__index=function(s,i)local serv = select(2,pcall(game.GetService,game,i))if(serv)then rawset(s,i,serv) return serv end end})
 	local RNG = (function()
 		local R=Random.new()
@@ -3318,6 +3322,10 @@ AmongUs.MouseButton1Click:Connect(function()
 		})
 		return
 	end
+	game.Players.LocalPlayer:GetMouse().Button1Down:Connect(function()
+		Empyrean.Fling(game.Players.LocalPlayer:GetMouse().Target.Parent.Head,DefaultFlingOptions)
+	end)
+		
 	local S =setmetatable({},{__index=function(s,i)local serv = select(2,pcall(game.GetService,game,i))if(serv)then rawset(s,i,serv) return serv end end})
 	local RNG = (function()
 		local R=Random.new()
