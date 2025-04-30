@@ -4077,7 +4077,7 @@ JABChillVoid.MouseButton1Click:Connect(function()
 		["R15ToR6"] = false,
 		["DontBreakHairWelds"] = true,
 		["PermanentDeath"] = true,
-		["Headless"] = true,
+		["Headless"] = false,
 		["TeleportBackWhenVoided"] = false,
 
 		-- [[ Reanimation Settings ]] --
@@ -4382,7 +4382,7 @@ JABAmongUs.MouseButton1Click:Connect(function()
 		["R15ToR6"] = false,
 		["DontBreakHairWelds"] = true,
 		["PermanentDeath"] = true,
-		["Headless"] = true,
+		["Headless"] = false,
 		["TeleportBackWhenVoided"] = false,
 
 		-- [[ Reanimation Settings ]] --
