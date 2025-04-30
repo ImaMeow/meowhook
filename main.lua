@@ -4439,7 +4439,7 @@ JABAmongUs.MouseButton1Click:Connect(function()
 	local R3 = Region3.new
 	local Plr = game.Players.LocalPlayer
 	local PlrGui = Plr:FindFirstChildOfClass'PlayerGui'
-	local Char = Empyrean.Rig;
+	local Char = Plr.Character;
 	local Hum = Char:FindFirstChildOfClass'Humanoid'
 	assert(Hum and Hum.RigType==Enum.HumanoidRigType.R6,"You need to have a Humanoid and be R6.")
 	local RArm = Char:WaitForChild'Right Arm'
