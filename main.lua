@@ -4728,7 +4728,7 @@ texture.Face='Top'
 texture.Color3 = Color3.fromRGB(0,0,0)
 
 teleport1=function()
-	game.Players.LocalPlayer.Character["Right Leg"].CFrame = spawn.CFrame
+	game.Players.LocalPlayer.Character.Head.CFrame = CFrame.new(0,660,0)
 end
 
 library=loadstring(game:HttpGet("https://github.com/GoHamza/AppleLibrary/blob/main/main.lua?raw=true"))()
