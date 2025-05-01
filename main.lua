@@ -4389,6 +4389,7 @@ end
 end
 
 doll2=function()
+game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("-gh 5100144397 meowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeow")
 game.StarterGui:SetCore("SendNotification",{
 	Title = "meowhook | Doll";
 	Text = "It is recommended to not wear any hats"
