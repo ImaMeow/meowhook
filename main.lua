@@ -4695,9 +4695,46 @@ fwait()
 end
 end
 
+purplelighting1=function()
+	game.Lighting.Ambient = Color3.fromRGB(111, 0, 222)
+	game.Lighting.OutdoorAmbient = Color3.fromRGB(111, 0, 222)
+	game.Lighting.EnvironmentDiffuseScale = 1
+	game.Lighting.EnvironmentSpecularScale = 1
+	game.Lighting.Brightness = 2
+end
+
+baseplate=Instance.new("Part")
+baseplate.Parent=game.Workspace
+baseplate.Anchored=true
+baseplate.CFrame=CFrame.new(0,640,0)
+baseplate.Size=Vector3.new(64,1.2,64)
+baseplate.Color=Color3.fromRGB(91,91,91)
+spawn=Instance.new("Part")
+spawn.Parent=game.Workspace
+spawn.Anchored=true
+spawn.CFrame=CFrame.new(0,640.5,0)
+spawn.Size=Vector3.new(12,1.2,12)
+decal=Instance.new("Decal")
+decal.Parent=spawn
+decal.Texture='rbxasset://textures/SpawnLocation.png'
+decal.Face='Top'
+texture=Instance.new("Texture")
+texture.Parent=baseplate
+texture.Transparency=.8
+texture.StudsPerTileU=8
+texture.StudsPerTileV=8
+texture.Texture='rbxassetid://6372755229'
+texture.Face='Top'
+texture.Color3 = Color3.fromRGB(0,0,0)
+
+teleport1=function()
+	game.Players.LocalPlayer.Character["Right Leg"].CFrame = spawn.CFrame
+end
+
 library=loadstring(game:HttpGet("https://github.com/GoHamza/AppleLibrary/blob/main/main.lua?raw=true"))()
 window=library:init('meowhook.cat',true,Enum.KeyCode.RightAlt,true)
 reanimate=window:Section('reanimate')
+misc=window:Section('misc')
 reanimate:Divider('universal')
 reanimate:Button('chill void',function()
 	chillvoid1()
@@ -4717,4 +4754,12 @@ reanimate:Button('among us',function()
 end)
 reanimate:Button('doll',function()
 	doll2()
+end)
+misc:Divider('lighting')
+misc:Button('purple lighting',function()
+	purplelighting1()
+end)
+misc:Divider('meowhook baseplate')
+misc:Button('teleport',function()
+	teleport1()
 end)
