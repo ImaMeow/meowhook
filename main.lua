@@ -4745,59 +4745,172 @@ bringplayer1=function(a)
     game.Players[a].Character.Head.CFrame = game.Players.LocalPlayer.Character.Head.CFrame
 end
 
+accelerationcoilspam = false
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if not accelerationcoilspam then return end
+    game.Workspace.Tools["Chest_Acceleration_Coil"].LidToggle:FireServer()
+    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Players.LocalPlayer.Character
+        end
+    end
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Workspace
+        end
+    end
+end)
+
+cyclotronspam = false
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if not cyclotronspam then return end
+    game.Workspace.Tools["Chest_Cyclotron"].LidToggle:FireServer()
+    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Players.LocalPlayer.Character
+        end
+    end
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Workspace
+        end
+    end
+end)
+
+fireflyspam = false
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if not fireflyspam then return end
+    game.Workspace.Tools["Chest_Firefly"].LidToggle:FireServer()
+    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Players.LocalPlayer.Character
+        end
+    end
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Workspace
+        end
+    end
+end)
+
+gravitycoilspam = false
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if not gravitycoilspam then return end
+    game.Workspace.Tools["Chest_Gravity_Coil"].LidToggle:FireServer()
+    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Players.LocalPlayer.Character
+        end
+    end
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Workspace
+        end
+    end
+end)
+
+invisibilitycloakspam = false
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if not invisibilitycloakspam then return end
+    game.Workspace.Tools["Chest_Invisibility_Cloak"].LidToggle:FireServer()
+    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Players.LocalPlayer.Character
+        end
+    end
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Workspace
+        end
+    end
+end)
+
+teleportspam = false
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if not teleportspam then return end
+    game.Workspace.Tools["Chest_Teleport"].LidToggle:FireServer()
+    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Players.LocalPlayer.Character
+        end
+    end
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Workspace
+        end
+    end
+end)
+
 library=loadstring(game:HttpGet("https://github.com/GoHamza/AppleLibrary/blob/main/main.lua?raw=true"))()
 window=library:init('meowhook.cat',true,Enum.KeyCode.RightAlt,true)
 reanimate=window:Section('reanimate')
-reanimate:Divider('universal')
+reanimate:Divider('rcd')
 reanimate:Button('chill void',function()
-    window:TempNotify('meowhook.cat','attempting to run function chillvoid1','rbxassetid://12608259004')
 	chillvoid1()
 end)
 reanimate:Button('among us',function()
-    window:TempNotify('meowhook.cat','attempting to run function amongus1','rbxassetid://12608259004')
 	amongus1()
 end)
 reanimate:Button('doll',function()
-    window:TempNotify('meowhook.cat','attempting to run function doll1','rbxassetid://12608259004')
 	doll1()
 end)
-reanimate:Divider('just a baseplate')
+reanimate:Divider('acd')
 reanimate:Button('chill void',function()
-    window:TempNotify('meowhook.cat','attempting to run function chillvoid2','rbxassetid://12608259004')
 	chillvoid2()
 end)
 reanimate:Button('among us',function()
-    window:TempNotify('meowhook.cat','attempting to run function amongus2','rbxassetid://12608259004')
 	amongus2()
 end)
 reanimate:Button('doll',function()
-    window:TempNotify('meowhook.cat','attempting to run function doll2','rbxassetid://12608259004')
 	doll2()
 end)
 misc=window:Section('misc')
 misc:Divider('lighting')
 misc:Button('purple lighting',function()
-    window:TempNotify('meowhook.cat','attempting to run function purplelighting1','rbxassetid://12608259004')
 	purplelighting1()
 end)
 misc:Divider('meowhook baseplate')
 misc:Button('teleport',function()
-    window:TempNotify('meowhook.cat','attempting to run function teleport1','rbxassetid://12608259004')
 	teleport1()
 end)
 if game.PlaceId == 2971329387 then
-    window:TempNotify('meowhook.cat','we have detected you are in cook burgers so we added a cookburgers tab','rbxassetid://12608259004')
+    window:TempNotify('meowhook.cat','we have detected you are in cook burgers so we added a cook burgers tab','rbxassetid://12608259004')
     cookburgers=window:Section('cook burgers')
     cookburgers:TextField('claim','player name',function(a)
-        window:TempNotify('meowhook.cat','attempting to run function claimplayer1','rbxassetid://12608259004')
         claimplayer1(a)
     end)
     cookburgers:TextField('kill','player name',function(a)
-        window:TempNotify('meowhook.cat','attempting to run function killplayer1','rbxassetid://12608259004')
         killplayer1(a)
     end)
     cookburgers:TextField('bring','player username',function(a)
-        window:TempNotify('meowhook.cat','attempting to run function bringplayer1','rbxassetid://12608259004')
         bringplayer1(a)
+    end)
+end
+if game.PlaceId == 15965875578 then
+    window:TempNotify('meowhook.cat','we have detected you are in 4nn1s place so we added a 4nn1s place tab','rbxassetid://12608259004')
+    nn1splace=window:Section('4nn1s place')
+    nn1splace:Switch('acceleration coil spammer',false,function(a)
+        accelerationcoilspam = a
+    end)
+    nn1splace:Switch('cyclotron spammer',false,function(a)
+        cyclotronspam = a
+    end)
+    nn1splace:Switch('firefly spammer',false,function(a)
+        fireflyspam = a
+    end)
+    nn1splace:Switch('gravity coil spammer',false,function(a)
+        gravitycoilspam = a
+    end)
+    nn1splace:Switch('invisibility cloak spammer',false,function(a)
+        invisibilitycloakspam = a
+    end)
+    nn1splace:Switch('teleport spammer',false,function(a)
+        teleportspam = a
     end)
 end
