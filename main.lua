@@ -969,7 +969,14 @@ Empyrean = Start({
 	},
 	ApplyDescription = true,
 	BreakJointsDelay = 0.255,
-	ClickFling = false,
+	ClickFling = true,
+	DefaultFlingOptions = {
+		HatFling = false,
+		Highlight = true,
+		PredictionFling = true,
+		Timeout = 1,
+		ToolFling = false,
+	},
 	DisableCharacterCollisions = true,
 	DisableHealthBar = true,
 	DisableRigCollisions = true,
@@ -988,14 +995,6 @@ Empyrean = Start({
 	SimulationRadius = 2147483647,
 	TeleportRadius = 12,
 })
-
-DefaultFlingOptions = {
-	HatFling = false,
-	Highlight = true,
-	PredictionFling = true,
-	Timeout = 1,
-	ToolFling = false,
-}
 
 task.wait(2)
 
@@ -2546,7 +2545,14 @@ Empyrean = Start({
 	},
 	ApplyDescription = true,
 	BreakJointsDelay = 0.255,
-	ClickFling = false,
+	ClickFling = true,
+	DefaultFlingOptions = {
+		HatFling = false,
+		Highlight = true,
+		PredictionFling = true,
+		Timeout = 1,
+		ToolFling = false,
+	},
 	DisableCharacterCollisions = true,
 	DisableHealthBar = true,
 	DisableRigCollisions = true,
@@ -2565,14 +2571,6 @@ Empyrean = Start({
 	SimulationRadius = 2147483647,
 	TeleportRadius = 12,
 })
-
-DefaultFlingOptions = {
-	HatFling = false,
-	Highlight = true,
-	PredictionFling = true,
-	Timeout = 1,
-	ToolFling = false,
-}
 
 task.wait(2)
 
@@ -4110,7 +4108,14 @@ Empyrean = Start({
 	},
 	ApplyDescription = true,
 	BreakJointsDelay = 0.255,
-	ClickFling = false,
+	ClickFling = true,
+	DefaultFlingOptions = {
+		HatFling = false,
+		Highlight = true,
+		PredictionFling = true,
+		Timeout = 1,
+		ToolFling = false,
+	},
 	DisableCharacterCollisions = true,
 	DisableHealthBar = true,
 	DisableRigCollisions = true,
@@ -4129,14 +4134,6 @@ Empyrean = Start({
 	SimulationRadius = 2147483647,
 	TeleportRadius = 12,
 })
-
-DefaultFlingOptions = {
-	HatFling = false,
-	Highlight = true,
-	PredictionFling = true,
-	Timeout = 1,
-	ToolFling = false,
-}
 
 task.wait(2)
 
@@ -5869,7 +5866,14 @@ Empyrean = Start({
 	},
 	ApplyDescription = true,
 	BreakJointsDelay = 0.255,
-	ClickFling = false,
+	ClickFling = true,
+	DefaultFlingOptions = {
+		HatFling = false,
+		Highlight = true,
+		PredictionFling = true,
+		Timeout = 1,
+		ToolFling = false,
+	},
 	DisableCharacterCollisions = true,
 	DisableHealthBar = true,
 	DisableRigCollisions = true,
@@ -5888,14 +5892,6 @@ Empyrean = Start({
 	SimulationRadius = 2147483647,
 	TeleportRadius = 12,
 })
-
-DefaultFlingOptions = {
-	HatFling = false,
-	Highlight = true,
-	PredictionFling = true,
-	Timeout = 1,
-	ToolFling = false,
-}
 
 task.wait(2)
 
