@@ -4779,122 +4779,6 @@ teleport1=function()
 	game.Players.LocalPlayer.Character.Head.CFrame = CFrame.new(0,660,0)
 end
 
-claimplayer1=function(a)
-    game.ReplicatedStorage.Systems.NetworkOwnershipsSystem.Network4:InvokeServer(unpack({
-        game.Players[a].Character
-    }))
-end
-
-killplayer1=function(a)
-    game.Players[a].Character.Humanoid:ChangeState(15)
-end
-
-bringplayer1=function(a)
-    game.Players[a].Character.Head.CFrame = game.Players.LocalPlayer.Character.Head.CFrame
-end
-
-accelerationcoilspam = false
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if not accelerationcoilspam then return end
-    game.Workspace.Tools["Chest_Acceleration_Coil"].LidToggle:FireServer()
-    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Players.LocalPlayer.Character
-        end
-    end
-    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Workspace
-        end
-    end
-end)
-
-cyclotronspam = false
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if not cyclotronspam then return end
-    game.Workspace.Tools["Chest_Cyclotron"].LidToggle:FireServer()
-    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Players.LocalPlayer.Character
-        end
-    end
-    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Workspace
-        end
-    end
-end)
-
-fireflyspam = false
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if not fireflyspam then return end
-    game.Workspace.Tools["Chest_Firefly"].LidToggle:FireServer()
-    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Players.LocalPlayer.Character
-        end
-    end
-    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Workspace
-        end
-    end
-end)
-
-gravitycoilspam = false
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if not gravitycoilspam then return end
-    game.Workspace.Tools["Chest_Gravity_Coil"].LidToggle:FireServer()
-    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Players.LocalPlayer.Character
-        end
-    end
-    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Workspace
-        end
-    end
-end)
-
-invisibilitycloakspam = false
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if not invisibilitycloakspam then return end
-    game.Workspace.Tools["Chest_Invisibility_Cloak"].LidToggle:FireServer()
-    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Players.LocalPlayer.Character
-        end
-    end
-    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Workspace
-        end
-    end
-end)
-
-teleportspam = false
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if not teleportspam then return end
-    game.Workspace.Tools["Chest_Teleport"].LidToggle:FireServer()
-    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Players.LocalPlayer.Character
-        end
-    end
-    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-        if v:IsA("Tool") then
-            v.Parent = game.Workspace
-        end
-    end
-end)
-
 dafeets1=function()
     do
 	local Accessories = {}
@@ -9477,79 +9361,27 @@ fwait()
 end
 end
 
-library=loadstring(game:HttpGet("https://github.com/GoHamza/AppleLibrary/blob/main/main.lua?raw=true"))()
-window=library:init('meowhook.cat',true,Enum.KeyCode.RightAlt,true)
-reanimate=window:Section('reanimate')
-reanimate:Divider('rcd')
-reanimate:Button('chill void',function()
-	chillvoid1()
-end)
-reanimate:Button('among us',function()
-	amongus1()
-end)
-reanimate:Button('doll',function()
-	doll1()
-end)
-reanimate:Button('da feets',function()
-    dafeets1()
-end)
-reanimate:Button('c r a z y v 1',function()
-	crazyv11()
-end)
-reanimate:Divider('acd (just a baseplate special)')
-reanimate:Button('chill void',function()
-	chillvoid2()
-end)
-reanimate:Button('among us',function()
-	amongus2()
-end)
-reanimate:Button('doll',function()
-	doll2()
-end)
-reanimate:Button('da feets',function()
-    dafeets2()
-end)
-misc=window:Section('misc')
-misc:Divider('lighting')
-misc:Button('purple lighting',function()
-	purplelighting1()
-end)
-misc:Divider('meowhook baseplate')
-misc:Button('teleport',function()
-	teleport1()
-end)
-if game.PlaceId == 2971329387 then
-    window:TempNotify('meowhook.cat','we have detected you are in cook burgers so we added a cook burgers tab','rbxassetid://12608259004')
-    cookburgers=window:Section('cook burgers')
-    cookburgers:TextField('claim','player name',function(a)
-        claimplayer1(a)
-    end)
-    cookburgers:TextField('kill','player name',function(a)
-        killplayer1(a)
-    end)
-    cookburgers:TextField('bring','player username',function(a)
-        bringplayer1(a)
-    end)
-end
-if game.Workspace:FindFirstChild("Cabins") then
-    window:TempNotify('meowhook.cat','we have detected you are in the starter place so we added a starter place tab','rbxassetid://12608259004')
-    starterplace=window:Section('starter place')
-    starterplace:Switch('acceleration coil spammer',false,function(a)
-        accelerationcoilspam = a
-    end)
-    starterplace:Switch('cyclotron spammer',false,function(a)
-        cyclotronspam = a
-    end)
-    starterplace:Switch('firefly spammer',false,function(a)
-        fireflyspam = a
-    end)
-    starterplace:Switch('gravity coil spammer',false,function(a)
-        gravitycoilspam = a
-    end)
-    starterplace:Switch('invisibility cloak spammer',false,function(a)
-        invisibilitycloakspam = a
-    end)
-    starterplace:Switch('teleport spammer',false,function(a)
-        teleportspam = a
-    end)
-end
+fluent=loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+window=fluent:CreateWindow({
+    Title='meowhook.cat';
+    SubTitle='using fluent library!';
+    TabWidth=160;
+    Size=UDim2.fromOffset(580,460);
+    Acrylic=true;
+    Theme='Amethyst';
+    MinimizeKey=Enum.KeyCode.RightAlt;
+})
+options=fluent.Options
+reanimate=window:AddTab({ Title='reanimate';icon=''})
+reanimate:AddButton({ Title='chill void (rcd)';Callback=function() chillvoid1() end;})
+reanimate:AddButton({ Title='among us (rcd)';Callback=function() amongus1() end;})
+reanimate:AddButton({ Title='doll (rcd)';Callback=function() doll1() end;})
+reanimate:AddButton({ Title='da feets (rcd)';Callback=function() dafeets1() end;})
+reanimate:AddButton({ Title='c r a z y v 1 (rcd)';Callback=function() crazyv11() end;})
+reanimate:AddButton({ Title='chill void (jab)';Callback=function() chillvoid2() end;})
+reanimate:AddButton({ Title='among us (jab)';Callback=function() amongus2() end;})
+reanimate:AddButton({ Title='doll (jab)';Callback=function() doll2() end;})
+reanimate:AddButton({ Title='da feets (jab)';Callback=function() dafeets2() end;})
+misc=window:AddTab({ Title='misc';icon=''})
+misc:AddButton({ Title='purple lighting';Callback=function() purplelighting1() end;})
+misc:AddButton({ Title='teleport to meowplate';Callback=function() teleport1() end;})
