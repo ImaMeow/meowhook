@@ -8275,7 +8275,7 @@ if game.PlaceId == 2971329387 then
         bringplayer1(a)
     end)
 end
-if game.Workspace:FindFirstChild("Tools") then
+if game.Workspace:FindFirstChild("Cabins") then
     window:TempNotify('meowhook.cat','we have detected you are in the starter place so we added a starter place tab','rbxassetid://12608259004')
     starterplace=window:Section('starter place')
     starterplace:Switch('acceleration coil spammer',false,function(a)
