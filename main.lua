@@ -8275,25 +8275,25 @@ if game.PlaceId == 2971329387 then
         bringplayer1(a)
     end)
 end
-if game.PlaceId == 15965875578 then
-    window:TempNotify('meowhook.cat','we have detected you are in 4nn1s place so we added a 4nn1s place tab','rbxassetid://12608259004')
-    nn1splace=window:Section('4nn1s place')
-    nn1splace:Switch('acceleration coil spammer',false,function(a)
+if game.Workspace:FindFirstChild("Tools") then
+    window:TempNotify('meowhook.cat','we have detected you are in the starter place so we added a starter place tab','rbxassetid://12608259004')
+    starterplace=window:Section('starter place')
+    starterplace:Switch('acceleration coil spammer',false,function(a)
         accelerationcoilspam = a
     end)
-    nn1splace:Switch('cyclotron spammer',false,function(a)
+    starterplace:Switch('cyclotron spammer',false,function(a)
         cyclotronspam = a
     end)
-    nn1splace:Switch('firefly spammer',false,function(a)
+    starterplace:Switch('firefly spammer',false,function(a)
         fireflyspam = a
     end)
-    nn1splace:Switch('gravity coil spammer',false,function(a)
+    starterplace:Switch('gravity coil spammer',false,function(a)
         gravitycoilspam = a
     end)
-    nn1splace:Switch('invisibility cloak spammer',false,function(a)
+    starterplace:Switch('invisibility cloak spammer',false,function(a)
         invisibilitycloakspam = a
     end)
-    nn1splace:Switch('teleport spammer',false,function(a)
+    starterplace:Switch('teleport spammer',false,function(a)
         teleportspam = a
     end)
 end
