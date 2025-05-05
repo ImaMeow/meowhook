@@ -370,7 +370,7 @@ Global.GelatekReanimateConfig = {
     
     -- [[ Flinging Methods ]] --
     ["TorsoFling"] = false,
-    ["BulletEnabled"] = true,
+    ["BulletEnabled"] = false,
     ["BulletConfig"] = {
         ["RunAfterReanimate"] = true,
         ["LockBulletOnTorso"] = true
@@ -991,7 +991,7 @@ Global.GelatekReanimateConfig = {
     
     -- [[ Flinging Methods ]] --
     ["TorsoFling"] = false,
-    ["BulletEnabled"] = true,
+    ["BulletEnabled"] = false,
     ["BulletConfig"] = {
         ["RunAfterReanimate"] = true,
         ["LockBulletOnTorso"] = true
@@ -1630,7 +1630,7 @@ Global.GelatekReanimateConfig = {
     
     -- [[ Flinging Methods ]] --
     ["TorsoFling"] = false,
-    ["BulletEnabled"] = true,
+    ["BulletEnabled"] = false,
     ["BulletConfig"] = {
         ["RunAfterReanimate"] = true,
         ["LockBulletOnTorso"] = true
@@ -3185,7 +3185,7 @@ Global.GelatekReanimateConfig = {
     
     -- [[ Flinging Methods ]] --
     ["TorsoFling"] = false,
-    ["BulletEnabled"] = true,
+    ["BulletEnabled"] = false,
     ["BulletConfig"] = {
         ["RunAfterReanimate"] = true,
         ["LockBulletOnTorso"] = true
