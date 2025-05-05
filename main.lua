@@ -369,7 +369,7 @@ Global.GelatekReanimateConfig = {
     ["DetailedCredits"] = false,
     
     -- [[ Flinging Methods ]] --
-    ["TorsoFling"] = true,
+    ["TorsoFling"] = false,
     ["BulletEnabled"] = true,
     ["BulletConfig"] = {
         ["RunAfterReanimate"] = true,
@@ -990,7 +990,7 @@ Global.GelatekReanimateConfig = {
     ["DetailedCredits"] = false,
     
     -- [[ Flinging Methods ]] --
-    ["TorsoFling"] = true,
+    ["TorsoFling"] = false,
     ["BulletEnabled"] = true,
     ["BulletConfig"] = {
         ["RunAfterReanimate"] = true,
@@ -1629,7 +1629,7 @@ Global.GelatekReanimateConfig = {
     ["DetailedCredits"] = false,
     
     -- [[ Flinging Methods ]] --
-    ["TorsoFling"] = true,
+    ["TorsoFling"] = false,
     ["BulletEnabled"] = true,
     ["BulletConfig"] = {
         ["RunAfterReanimate"] = true,
@@ -3184,7 +3184,7 @@ Global.GelatekReanimateConfig = {
     ["DetailedCredits"] = false,
     
     -- [[ Flinging Methods ]] --
-    ["TorsoFling"] = true,
+    ["TorsoFling"] = false,
     ["BulletEnabled"] = true,
     ["BulletConfig"] = {
         ["RunAfterReanimate"] = true,
