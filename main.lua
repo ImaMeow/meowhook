@@ -4420,14 +4420,16 @@ local Plr = game.Players.LocalPlayer
 local PlrGui = Plr:FindFirstChildOfClass'PlayerGui'
 local Char = game.Workspace.Terrain.meowhook6krypton;
 Char.Humanoid.HipHeight = 3
-if Char:FindFirstChild("Accessory (VoidRPG)") then
-	Char["Accessory (VoidRPG)"].Handle.AccessoryWeld.Part1 = Char["Right Arm"]
-	Char["Accessory (VoidRPG)"].Handle.AccessoryWeld.C1 = CF.N(-.5,0,-1) * CF.A(0,math.rad(90),math.rad(-45))
-end
-if Char:FindFirstChild("Accessory (VoidAlligatorJaw)") then
-	Char["Accessory (VoidAlligatorJaw)"].Handle.AccessoryWeld.Part1 = Char["Right Arm"]
-	Char["Accessory (VoidAlligatorJaw)"].Handle.AccessoryWeld.C1 = CF.N(-.5,-5,-1.05) * CF.A(0,math.rad(90),math.rad(-135))
-end
+game:GetService("RunService").Heartbeat:Connect(function()
+    if Char:FindFirstChild("Accessory (VoidRPG)") then
+	    Char["Accessory (VoidRPG)"].Handle.AccessoryWeld.Part1 = Char["Right Arm"]
+	    Char["Accessory (VoidRPG)"].Handle.AccessoryWeld.C1 = CF.N(-.5,0,-1) * CF.A(0,math.rad(90),math.rad(-45))
+    end
+    if Char:FindFirstChild("Accessory (VoidAlligatorJaw)") then
+	    Char["Accessory (VoidAlligatorJaw)"].Handle.AccessoryWeld.Part1 = Char["Right Arm"]
+	    Char["Accessory (VoidAlligatorJaw)"].Handle.AccessoryWeld.C1 = CF.N(-.5,-5,-1.05) * CF.A(0,math.rad(90),math.rad(-135))
+    end
+end)
 local Hum = Char:FindFirstChildOfClass'Humanoid'
 assert(Hum and Hum.RigType==Enum.HumanoidRigType.R6,"You need to have a Humanoid and be R6.")
 local RArm = Char:WaitForChild'Right Arm'
